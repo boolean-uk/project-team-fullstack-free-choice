@@ -18,6 +18,7 @@ model User {
   updatedAt DateTime  @updatedAt
   genres    UserGenreInterest[]
   tags      UserTagInterest[]
+  Recommendation Recommendation?
 }
 
 model Genre {
@@ -37,4 +38,28 @@ model UserGenreInterest{
   @@id([userId, genreId])
 }
 
+model Tag {
+  id        Int       @id @default(autoincrement())
+  name      String    @unique
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  users     UserTagInterest[]
+}
 
+model UserTagInterest {
+  user      User      @relation(fields: [userId], references: [id])
+  userId    Int
+  tag       Tag       @relation(fields: [tagId], references: [id])
+  tagId     Int
+  @@id([userId, tagId])
+}
+
+model Recommendation {
+  id        Int       @id @default(autoincrement())
+  isMatch   Boolean
+  isStored  Boolean
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int      @unique
+}
