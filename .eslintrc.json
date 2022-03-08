@@ -19,6 +19,9 @@
         "react"
     ],
     "rules": {
+      "no-magic-numbers": 1,
+      "camelcase": [1, { "properties": "always" }],
+      "eqeqeq": 1
     },
     "overrides": [
       {
