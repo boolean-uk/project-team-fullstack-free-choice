@@ -27,3 +27,18 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "project-team-fullstack" #Must be unique in Heroku
           heroku_email: "edward@boolean.co.uk"
+
+name: Move assigned card
+on:
+  issues:
+    types:
+      - assigned
+jobs:
+  move-assigned-card:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: alex-page/github-project-automation-plus@5bcba1c1c091a222584d10913e5c060d32c44044
+        with:
+          project: test
+          column: In progress
+          repo-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
