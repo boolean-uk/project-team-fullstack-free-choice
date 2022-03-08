@@ -43,11 +43,11 @@ model Book {
   id              Int               @id @default(autoincrement())
   title           String        
   isbn            String            @unique
-  authors         Author[]
-  genres          Genre[]
   description     String
   createdAt       DateTime          @default(now())
   updatedAt       DateTime          @updatedAt
+  authors         Author[]
+  genres          Genre[]
   recommendations Recommendation[]
   tags            Tag[]
   }
