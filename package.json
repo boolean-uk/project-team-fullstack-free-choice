@@ -6,6 +6,7 @@
     "@babel/core": "^7.17.5",
     "@prisma/client": "^3.10.0",
     "babel": "^6.23.0",
+    "concurrently": "^7.0.0",
     "cors": "^2.8.5",
     "dom": "^0.0.3",
     "dotenv": "^16.0.0",
@@ -55,6 +56,5 @@
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Can-Tina/project-team-fullstack-free-choice/issues"
-  },
-  "homepage": "https://github.com/Can-Tina/project-team-fullstack-free-choice#readme"
+  }
 }
