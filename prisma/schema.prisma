@@ -1,4 +1,3 @@
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -16,9 +15,8 @@ model User {
   email     String    @unique
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
-  genres    UserGenreInterest[]
-  tags      UserTagInterest[]
-  Recommendation Recommendation?
+  genres    Genre[]
+  tags      Tag[]
 }
 
 model Genre {
@@ -26,16 +24,7 @@ model Genre {
   name      String    @unique
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
-  users     UserGenreInterest[]
-}
-
-
-model UserGenreInterest{
-  user      User      @relation(fields: [userId], references: [id])
-  userId    Int
-  genre     Genre     @relation(fields: [genreId], references: [id])
-  genreId   Int
-  @@id([userId, genreId])
+  users     User[]
 }
 
 model Tag {
@@ -43,23 +32,5 @@ model Tag {
   name      String    @unique
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
-  users     UserTagInterest[]
-}
-
-model UserTagInterest {
-  user      User      @relation(fields: [userId], references: [id])
-  userId    Int
-  tag       Tag       @relation(fields: [tagId], references: [id])
-  tagId     Int
-  @@id([userId, tagId])
-}
-
-model Recommendation {
-  id        Int       @id @default(autoincrement())
-  isMatch   Boolean
-  isStored  Boolean
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  user      User     @relation(fields: [userId], references: [id])
-  userId    Int      @unique
+  users     User[]
 }
