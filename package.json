@@ -4,12 +4,16 @@
   "private": true,
   "dependencies": {
     "@babel/core": "^7.17.5",
+    "@prisma/client": "^3.10.0",
     "babel": "^6.23.0",
     "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
     "express": "^4.17.3",
+    "morgan": "^1.10.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-scripts": "5.0.0"
+    "react-router": "^6.2.2",
+    "react-scripts": "^5.0.0"
   },
   "scripts": {
     "devstart": "concurrently \"react-scripts start\" \"nodemon src/server/index.js\"",
@@ -35,6 +39,20 @@
     "eslint": "^8.10.0",
     "eslint-plugin-react": "^7.29.3",
     "jasmine": "^4.0.2",
-    "nodemon": "^2.0.15"
-  }
+    "nodemon": "^2.0.15",
+    "prisma": "^3.10.0"
+  },
+  "description": "This is the second of the fullstack team projects. However, this time you have free choice as to what you want to build. Perhaps the most challenging task, then, is deciding, as a team, exactly what that is!",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Can-Tina/project-team-fullstack-free-choice.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Can-Tina/project-team-fullstack-free-choice/issues"
+  },
+  "homepage": "https://github.com/Can-Tina/project-team-fullstack-free-choice#readme"
 }
