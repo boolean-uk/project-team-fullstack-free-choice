@@ -1,7 +1,7 @@
 const { prisma } = require('../utils/prisma');
 const { SERVER_ERROR, SERVER_SUCCESS, PRISMA_ERROR, KEYS } = require('../config.js');
 
-const { hashedPassword, checkPassword } = require('../utils/auth.js');
+const { hashedPassword, checkPassword, removeKeys } = require('../utils/auth.js');
 
 const createUser = async (req, res) => {
 	const { username, password, email } = req.body;
@@ -55,7 +55,7 @@ const getUserById = async (req, res) => {
 const loginUser = async (req, res) => {
 	const { username, password } = req.body;
 
-	const foundUser = await prisma.user.findUnique({
+	let foundUser = await prisma.user.findUnique({
 		where: {
 			username,
 		},

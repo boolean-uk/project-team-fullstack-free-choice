@@ -21,8 +21,16 @@ const createToken = async(payload) => {
     return jwt.sign(payload, SECRET);
 }
 
+const removeKeys = (user, ...keys) => {
+    for (let key of keys) {
+        delete user[key];
+    }
+    return user;
+};
+
 module.exports = {
     hashedPassword,
     checkPassword,
-    createToken
+    createToken,
+    removeKeys
 }
