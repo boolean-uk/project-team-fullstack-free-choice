@@ -7,6 +7,7 @@ const getAllBooks = async (req, res) => {
 			tags: true,
 		}
 	});
+
 	res.status(SERVER_SUCCESS.OK.CODE).json({ data: posts });
 };
 
@@ -20,14 +21,11 @@ const getBookById = async (req, res) => {
 	});
 
 	if (!foundUser) {
-		res
-			.status(SERVER_ERROR.NOT_FOUND.CODE)
-			.json({ error: SERVER_ERROR.NOT_FOUND.MESSAGE });
+		res.status(SERVER_ERROR.NOT_FOUND.CODE).json({ error: SERVER_ERROR.NOT_FOUND.MESSAGE });
 	}
 
 	res.status(SERVER_SUCCESS.OK.CODE).json({ data: foundUser });
 };
-
 
 module.exports = {
 	getAllBooks,

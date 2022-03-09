@@ -14,9 +14,4 @@ router.get('/:id', getUserById);
 
 router.post('/login', loginUser);
 
-
-
-
-
-
 module.exports = router;
