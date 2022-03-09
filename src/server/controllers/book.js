@@ -32,5 +32,4 @@ const getBookById = async (req, res) => {
 module.exports = {
 	getAllBooks,
 	getBookById,
-    getBookByGenre
 };
