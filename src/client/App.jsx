@@ -1,12 +1,12 @@
 import React from 'react';
 import './App.css';
-import './styles/match.css'
-
-import Header from './components/Header'
-import Footer from './components/Footer'
 
 function App() {
-  return ();
+  return (
+    <div className="App">
+      <p>Hello, world!</p>
+    </div>
+  );
 }
 
 export default App;
