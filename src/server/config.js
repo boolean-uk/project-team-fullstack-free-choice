@@ -21,6 +21,8 @@ const PRISMA_ERROR = {
     }
 }
 
+const SECRET = process.env.SECRET;
+
 const GENRES = ['Fantacy', 'Horror', 'Science-Fiction', 'Romance', 'Adventure', 'History', 'Travel', 'Art', 'Health', 'Humor'];
 
 
@@ -28,5 +30,6 @@ module.exports = {
     SERVER_ERROR,
     SERVER_SUCCESS,
     PRISMA_ERROR,
-    GENRES
+    GENRES,
+    SECRET
 }

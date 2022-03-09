@@ -5,7 +5,7 @@ const { hashedPassword, checkPassword } = require("../utils/auth.js");
 
 const createUser = async (req, res) => {
 	const { username, password, email } = req.body;
-
+	
 	password = await hashedPassword(password);
 
 	const user = {
@@ -68,7 +68,9 @@ const loginUser = async (req, res) => {
         return res.status(SERVER_ERROR.UNAUTHORIZED.CODE).json({ error: SERVER_ERROR.UNAUTHORIZED.MESSAGE });
     }
 
-    res.status(SERVER_SUCCESS.OK.CODE).json({ data: foundUser});
+	const token = createToken({ id: foundUser.id});
+
+    res.status(SERVER_SUCCESS.OK.CODE).json({ data: foundUser, token: token});
 };
 
 module.exports = {

@@ -1,6 +1,8 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
+const { SECRET } = require('../config');
+
 const { prisma } = require('./prisma');
 
 const saltRounds = 10;
@@ -17,7 +19,12 @@ const checkPassword = async(password, foundedPassword) => {
     }
 }
 
+const createToken = async(payload) => {
+    return jwt.sign(payload, SECRET);
+}
+
 module.exports = {
     hashedPassword,
-    checkPassword
+    checkPassword,
+    createToken
 }
