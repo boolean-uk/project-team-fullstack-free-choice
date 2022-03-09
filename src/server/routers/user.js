@@ -2,7 +2,8 @@ const express = require('express');
 
 const {
     createUser,
-    getUserById
+    getUserById,
+    loginUser
 } = require('../controllers/user.js');
 
 const router = express.Router();

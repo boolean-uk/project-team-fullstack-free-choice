@@ -9,6 +9,15 @@ const hashedPassword = async(password) => {
     return bcrypt.hashSync(password, saltRounds);
 }
 
+const checkPassword = async(password, foundedPassword) => {
+    try {
+        return await bcrypt.compare(password, foundedPassword);
+    } catch (error) {
+        return error;
+    }
+}
+
 module.exports = {
-    hashedPassword
+    hashedPassword,
+    checkPassword
 }

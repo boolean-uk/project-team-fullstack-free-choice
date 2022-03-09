@@ -1,61 +1,78 @@
-const { prisma } = require('../utils/prisma');
+const { prisma } = require("../utils/prisma");
+const { SERVER_ERROR, SERVER_SUCCESS, PRISMA_ERROR } = require("../config.js");
 
-const { hashedPassword } = require('../utils/auth.js');
+const { hashedPassword, checkPassword } = require("../utils/auth.js");
 
-const createUser = async( req, res ) => {
-    const { username, password, email } = req.body;
+const createUser = async (req, res) => {
+	const { username, password, email } = req.body;
 
-    password = await hashedPassword(password);
+	password = await hashedPassword(password);
 
-    const user = {
-        username,
-        password: password,
-        email,
-    }
+	const user = {
+		username,
+		password: password,
+		email,
+	};
 
-    try{
-        const createdUser = await prisma.user.create({
-            data: {
-                ...user
-            }
-        })
-        res.status(200).json(createdUser)
-    }
-    catch(error){
-        res.status(401).json({error: "Invalid Username or Password."});
-    }
-}
+	try {
+		const createdUser = await prisma.user.create({
+			data: {
+				...user,
+			},
+		});
+		res.status(SERVER_SUCCESS.OK.CODE).json({ data: createdUser });
+	} catch (error) {
+		if (error.code === PRISMA_ERROR.UNIQUE_CONSTRAINT_VIOLATION.CODE) {
+			res
+				.status(SERVER_ERROR.INTERNAL.CODE)
+				.json({
+					error:
+						PRISMA_ERROR.UNIQUE_CONSTRAINT_VIOLATION.CLIENT_MESSAGE_REGISTER,
+				});
+		}
+	}
+};
 
 const getUserById = async (req, res) => {
-    const { id } = req.params;
+	const { id } = req.params;
 
-    const findedUser = await prisma.user.findUnique({
-        where: {
-            id
-        }
-    })
+	const foundedUser = await prisma.user.findUnique({
+		where: {
+			id,
+		},
+	});
 
-    if(!findedUser){
-        return res.status(401).json({error: "Invalid Username or Password."})
+	if (!foundedUser) {
+		return res.status(SERVER_ERROR.NOT_FOUND.CODE).json({ error: SERVER_ERROR.NOT_FOUND.MESSAGE });
+	}
+
+	res.status(SERVER_SUCCESS.OK.CODE).json({ data: foundedUser});
+};
+
+const loginUser = async (req, res) => {
+	const { username, password } = req.body;
+
+	const foundUser = await prisma.user.findUnique({
+		where: {
+			username,
+		},
+	});
+
+	if (!foundUser) {
+        return res.status(SERVER_ERROR.UNAUTHORIZED.CODE).json({ error: SERVER_ERROR.UNAUTHORIZED.MESSAGE });
+	}
+
+    const checkPasswordMatch = await checkPassword(password, foundUser.password); 
+
+    if (!checkPasswordMatch) {
+        return res.status(SERVER_ERROR.UNAUTHORIZED.CODE).json({ error: SERVER_ERROR.UNAUTHORIZED.MESSAGE });
     }
 
-    res.status(200).json(findedUser);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
+    res.status(SERVER_SUCCESS.OK.CODE).json({ data: foundUser});
+};
 
 module.exports = {
-    createUser,
-    getUserById
+	createUser,
+	getUserById,
+	loginUser,
 };
