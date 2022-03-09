@@ -25,7 +25,7 @@ const KEYS = {
 
 const SECRET = process.env.SECRET;
 
-const GENRES = ['Fantacy', 'Horror', 'Science-Fiction', 'Romance', 'Adventure', 'History', 'Travel', 'Art', 'Health', 'Humor'];
+const GENRES = ['Fantasy', 'Horror', 'Science-Fiction', 'Romance', 'Adventure', 'History', 'Travel', 'Art', 'Health', 'Humor'];
 
 
 module.exports = {
