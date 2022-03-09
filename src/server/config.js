@@ -21,9 +21,12 @@ const PRISMA_ERROR = {
     }
 }
 
+const GENRES = ['Fantacy', 'Horror', 'Science-Fiction', 'Romance', 'Adventure', 'History', 'Travel', 'Art', 'Health', 'Humor'];
+
 
 module.exports = {
     SERVER_ERROR,
     SERVER_SUCCESS,
-    PRISMA_ERROR
+    PRISMA_ERROR,
+    GENRES
 }
