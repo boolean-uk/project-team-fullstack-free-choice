@@ -1,5 +1,5 @@
-const { prisma } = require("../utils/prisma");
-const { SERVER_ERROR, SERVER_SUCCESS, PRISMA_ERROR } = require("../config.js");
+const { prisma } = require('../utils/prisma');
+const { SERVER_ERROR, SERVER_SUCCESS } = require('../config.js');
 
 const getAllBooks = async (req, res) => {
 	const posts = await prisma.book.findMany({

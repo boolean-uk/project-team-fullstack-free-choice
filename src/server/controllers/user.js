@@ -1,16 +1,16 @@
-const { prisma } = require("../utils/prisma");
-const { SERVER_ERROR, SERVER_SUCCESS, PRISMA_ERROR } = require("../config.js");
+const { prisma } = require('../utils/prisma');
+const { SERVER_ERROR, SERVER_SUCCESS, PRISMA_ERROR } = require('../config.js');
 
-const { hashedPassword, checkPassword } = require("../utils/auth.js");
+const { hashedPassword, checkPassword, createToken } = require('../utils/auth.js');
 
 const createUser = async (req, res) => {
 	const { username, password, email } = req.body;
 	
-	password = await hashedPassword(password);
+	const passwordHashed = await hashedPassword(password);
 
 	const user = {
 		username,
-		password: password,
+		password: passwordHashed,
 		email,
 	};
 

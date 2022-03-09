@@ -8,11 +8,11 @@ const {
 
 const router = express.Router();
 
-router.post("/register", createUser);
+router.post('/register', createUser);
 
-router.get("/:id", getUserById);
+router.get('/:id', getUserById);
 
-router.post("/login", loginUser);
+router.post('/login', loginUser);
 
 
 
