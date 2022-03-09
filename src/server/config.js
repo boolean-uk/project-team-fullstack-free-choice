@@ -24,5 +24,6 @@ const PRISMA_ERROR = {
 
 module.exports = {
     SERVER_ERROR,
-    SERVER_SUCCESS
+    SERVER_SUCCESS,
+    PRISMA_ERROR
 }
