@@ -26,6 +26,24 @@ const createUser = async( req, res ) => {
     }
 }
 
+const getUserById = async (req, res) => {
+    const { id } = req.params;
+
+    const findedUser = await prisma.user.findUnique({
+        where: {
+            id
+        }
+    })
+
+    if(!findedUser){
+        return res.status(401).json({error: "Invalid Username or Password."})
+    }
+
+    res.status(200).json(findedUser);
+}
+
+
+
 
 
 
@@ -38,5 +56,6 @@ const createUser = async( req, res ) => {
 
 
 module.exports = {
-    createUser
+    createUser,
+    getUserById
 };
