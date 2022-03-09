@@ -11,6 +11,8 @@ if (process.env.NODE_ENV !== 'development') {
 	app.use(express.static(path.resolve(__dirname, '../../build')));
 }
 
+const userRouter = require("./routers/user");
+
 app.use(cors());
 // Tell express to use a JSON parser middleware
 app.use(express.json());
@@ -20,6 +22,8 @@ app.use(express.urlencoded({ extended: true }));
 app.get('/hello', (req, res) => {
   res.send('Hello World!')
 })
+
+app.use('/user', userRouter);
 
 // Set up a default "catch all" route to use when someone visits a route
 // that we haven't built
