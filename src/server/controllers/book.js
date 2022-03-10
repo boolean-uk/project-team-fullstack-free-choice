@@ -24,7 +24,7 @@ const getBookById = async (req, res) => {
 		res.status(SERVER_ERROR.NOT_FOUND.CODE).json({ error: SERVER_ERROR.NOT_FOUND.MESSAGE });
 	}
 
-	res.status(SERVER_SUCCESS.OK.CODE).json({ data: foundUser });
+	res.status(SERVER_SUCCESS.OK.CODE).json({ data: foundBook });
 };
 
 const deleteBook = async ( req, res ) => {
