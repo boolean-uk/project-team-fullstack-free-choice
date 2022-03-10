@@ -52,7 +52,11 @@ const calculation = (operands, operators) => {
 }
 
 export const calculate = (equation) => {
+    // console.log('this', equation)
     const parsed = parseEquation(equation)
-    return calculation(parsed.operands, parsed.operators);
+    if ( parsed.operands && parsed.operators ) {
+        return calculation(parsed.operands, parsed.operators);
+    }
+    return null    
 }
 

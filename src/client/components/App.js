@@ -16,7 +16,11 @@ export const App = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const answer = calculate(calculation);
-    setAnswer(answer)
+    if ( answer ) {
+      setAnswer(answer)
+    } else {
+      setAnswer("Invalid calc")
+    }
   }
 
   return (
