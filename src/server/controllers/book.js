@@ -14,20 +14,34 @@ const getAllBooks = async (req, res) => {
 const getBookById = async (req, res) => {
 	const { id } = req.params;
 
-	const foundUser = await prisma.book.findUnique({
+	const foundBook = await prisma.book.findUnique({
 		where: {
 			id,
 		},
 	});
 
-	if (!foundUser) {
+	if (!foundBook) {
 		res.status(SERVER_ERROR.NOT_FOUND.CODE).json({ error: SERVER_ERROR.NOT_FOUND.MESSAGE });
 	}
 
 	res.status(SERVER_SUCCESS.OK.CODE).json({ data: foundUser });
 };
 
+const deleteBook = async ( req, res ) => {
+	const { id } = req.params;
+
+	const deletedBook = await prisma.book.delete({
+		where: {
+			id: {
+				id: Number(id)
+			}
+		}
+	})
+	res.status(SERVER_SUCCESS.POST_OK.CODE).json({ data: deletedBook });
+}
+
 module.exports = {
 	getAllBooks,
 	getBookById,
+	deleteBook
 };
