@@ -30,4 +30,5 @@ const getBookFromAPI = async (isbn) => {
     return book;
 }
 
-//const book = getBookFromAPI('9781913322076');
+const book = getBookFromAPI('9781913322076');
+console.log(book);
