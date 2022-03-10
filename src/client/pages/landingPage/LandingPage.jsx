@@ -1,9 +1,19 @@
 import { React } from 'react';
 import '../../styles/landingPage.css';
 
+
 const LandingPage = () => {
     return (
-        <h2>HI</h2>
+        <div className='main-container'>
+            <div className='main'>
+                <div className='content'>
+                    <h1>Want to find your next <span>Book.</span> to read?</h1>
+                    <div className='buttons'>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
     )
 }
 
