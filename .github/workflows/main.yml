@@ -15,9 +15,9 @@ jobs:
         with:
           node-version: '16'
       - run: npm ci
-      - run: ./node_modules/.bin/eslint src
+      - run: npm run lint
 
-  notify:
+  deploy:
     needs: lint
     runs-on: ubuntu-latest
     steps:
