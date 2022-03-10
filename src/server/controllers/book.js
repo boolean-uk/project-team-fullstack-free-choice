@@ -2,13 +2,13 @@ const { prisma } = require('../utils/prisma');
 const { SERVER_ERROR, SERVER_SUCCESS } = require('../config.js');
 
 const getAllBooks = async (req, res) => {
-	const posts = await prisma.book.findMany({
+	const books = await prisma.book.findMany({
 		include: {
 			tags: true,
 		}
 	});
 
-	res.status(SERVER_SUCCESS.OK.CODE).json({ data: posts });
+	res.status(SERVER_SUCCESS.OK.CODE).json({ data: books });
 };
 
 const getBookById = async (req, res) => {
@@ -24,7 +24,7 @@ const getBookById = async (req, res) => {
 		res.status(SERVER_ERROR.NOT_FOUND.CODE).json({ error: SERVER_ERROR.NOT_FOUND.MESSAGE });
 	}
 
-	res.status(SERVER_SUCCESS.OK.CODE).json({ data: foundUser });
+	res.status(SERVER_SUCCESS.OK.CODE).json({ data: foundBook });
 };
 
 const deleteBook = async ( req, res ) => {
@@ -40,8 +40,14 @@ const deleteBook = async ( req, res ) => {
 	res.status(SERVER_SUCCESS.POST_OK.CODE).json({ data: deletedBook });
 }
 
+const getBookByTag = async(req, res) => {
+	const { tag } = req.params;
+}
+
 module.exports = {
 	getAllBooks,
 	getBookById,
-	deleteBook
+	deleteBook,
+	getBookByTag
 };
+
