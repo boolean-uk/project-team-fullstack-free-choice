@@ -30,7 +30,8 @@ const cleanBookData = (rawData) => {
         title: rawData.title,
         isbn: isbn,
         description: rawData.description,
-        authors: rawData.authors
+        authors: rawData.authors,
+        cover: rawData.imageLinks.thumbnail
     }
 }
 
@@ -42,13 +43,31 @@ const getBookFromAPI = async (isbn) => {
 }
 
 const seedBookDatabase = (req, res) => {
-    console.log('hi');
     ISBN_LIST.map(async (isbn) => {
-        const book = getBookFromAPI(isbn);
+        const book = await getBookFromAPI(isbn);
 
         const createdBook = await prisma.book.create({
             data: {
-                ...book
+                title: book.title,
+                isbn: book.isbn,
+                description: book.description,
+                cover: book.cover,
+                authors: {
+                    create: book.authors.map(author => {
+                        return {
+                            author: {
+                                connectOrCreate: {
+                                    where: {
+                                        name: author
+                                    },
+                                    create: {
+                                        name: author
+                                    }
+                                }
+                            }
+                        }
+                    })
+                }
             }
         });
 
