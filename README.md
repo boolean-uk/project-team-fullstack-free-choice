@@ -20,18 +20,18 @@ This is the second of the fullstack team projects. However, this time you have f
 - Must not expose sensitive information
 - Must not contain hard coded URL’s (routes are fine, `http://localhost` is not)
 - Commit messages must be consistent and meaningful
-    - Keep them in present tense (✅ `add, remove, update` ❌ `added, removed, updated`)
-    - Keep them short and descriptive ( `change hashing library`, `add password to user model` )
-    - [Here are some good guidelines](https://reflectoring.io/meaningful-commit-messages/) but don’t go overboard, the above two bullet points are enough
+  - Keep them in present tense (✅ `add, remove, update` ❌ `added, removed, updated`)
+  - Keep them short and descriptive ( `change hashing library`, `add password to user model` )
+  - [Here are some good guidelines](https://reflectoring.io/meaningful-commit-messages/) but don’t go overboard, the above two bullet points are enough
 
 ## Assessment
 
 - Students will work on feature branches and create pull requests to merge in to the `main` branch upon teacher approval. The team must discuss and provide feedback on the implementation in the PR before a teacher provides their feedback and final approval. [See pull-requests.md for the process.](./PR-PROCESS.md)
 - Stakeholder demo’s at the end of each sprint (3 days)
-    - Did you plan effectively for the current sprint?
-    - Did you perform daily standups?
-    - Can you accurately explain the work you’ve completed?
-    - Did you complete all of the tasks in the sprint?
+  - Did you plan effectively for the current sprint?
+  - Did you perform daily standups?
+  - Can you accurately explain the work you’ve completed?
+  - Did you complete all of the tasks in the sprint?
 - End of project retrospectives
 
 ## Getting started
@@ -48,5 +48,11 @@ This is the second of the fullstack team projects. However, this time you have f
 ## Running the app
 
 - Add `NODE_ENV="development"` to your .env file
-- Type `npm run devstart` to run the app.
-- Type `npm run lint` to run the linter if you wish to check your code quality.
+- Type `npm run devstart` to run the app
+- Type `npm run lint` to run the linter if you wish to check your code quality
+
+## Extension
+
+Add some unit testing to your project and CI/CD pipeline.
+
+There are examples of unit tests in this repository, which are are included in this repo's CI/CD pipeline - see the [PR](.github/workflows/pull_request.yml) and [Deploy](.github/workflows/main.yml) GitHub Action workflows.
