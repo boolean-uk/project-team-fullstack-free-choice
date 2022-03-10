@@ -26,7 +26,8 @@ const cleanBookData = (rawData) => {
 const getBookFromAPI = async (isbn) => {
     const rawBookData = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`);
     const book = cleanBookData(rawBookData.data.items[0].volumeInfo);
-    console.log(book);
+   
+    return book;
 }
 
-getBookFromAPI('9781913322076');
+//const book = getBookFromAPI('9781913322076');
