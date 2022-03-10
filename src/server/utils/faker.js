@@ -13,3 +13,7 @@ const fakeUsers = () => {
     
     return fakeUser
 }
+
+module.exports = {
+    fakeUsers
+}
