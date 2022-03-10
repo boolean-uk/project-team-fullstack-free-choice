@@ -1,24 +1,27 @@
-// const { PrismaClient } = require('@prisma/client');
-// const prisma = new PrismaClient();
 const axios = require('axios');
 
-const books = [];
+const getISBN = (industryIdentifiers) => {
+    const indIdentifier = industryIdentifiers.find(indId => indId.type === 'ISBN_13');
 
-const createBook = (apiBookData) => {
-    // books.push({
-    //     title: ,
-    //     isbn: ,
-    //     description: ,
-    //     cover: ,
-    //     authors: [],
-    //     genres: [],
-    // })
+    return indIdentifier?.identifier;
 }
 
-const getBooksFromApi = async (searchTerm) => {
-    console.log(searchTerm);
-    const res = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=${searchTerm}`);
-    console.log(res.data.items[0].volumeInfo.categories);
+const cleanBookData = (rawData) => {
+    const isbn = getISBN(rawData.industryIdentifiers);
+
+    return {
+        title: rawData.title,
+        isbn: isbn,
+        description: rawData.description,
+        authors: rawData.authors
+    }
 }
 
-getBooksFromApi('cooking');
+const getBookFromAPI = async (isbn) => {
+    const rawBookData = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`);
+    const book = cleanBookData(rawBookData.data.items[0].volumeInfo);
+    
+    return book;
+}
+
+getBookFromAPI('9781913322076');
