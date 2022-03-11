@@ -15,7 +15,7 @@ const ISBN_LIST = [
     "9781725209350",
     "9781491820148"
 ];
-// 9780828319027
+
 const getISBN = (industryIdentifiers) => {
 	const indIdentifier = industryIdentifiers.find(
 		(indId) => indId.type === "ISBN_13"
