@@ -8,7 +8,6 @@ const URL = process.env.REACT_APP_API_URL;
 const registerEndpoint = '/user/register';
 const registerURL = URL + registerEndpoint;
 
-
 const emptyUser = {
     email: '',
     username: '',
@@ -26,10 +25,10 @@ const SignUp = () => {
             },
             body: JSON.stringify(userDetails)
         })
-        .then(res => res.json())
-        .then(res => {
-            localStorage.setItem('loginInfo', res.json);
-        })
+        res => res.json()
+        res => {
+            localStorage.setItem('token', res.token);
+        }
     }
 
     const handleChange = (e) => {
@@ -41,7 +40,7 @@ const SignUp = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        postRegister(registerURL, userDetails); 
+        await postRegister(registerURL, userDetails);
     }
 
     return (
