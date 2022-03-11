@@ -15,7 +15,7 @@ For the Heroku deployment to work, you must visit [Account Settings](https://das
 5. Edit the `.github/workflows/main.yml` file, changing the value of the `heroku_app_name` variable from `project-team-fullstack` to some unique name for your application
 6. Change the value of the `heroku_email` variable from `edward@boolean.co.uk` to your email address
 
-To monitor your newly configured workflow, whenever you push to main on your repository, visit the GitHub repo, and click _Actions_. Then click on the _Deploy_ workflow, and click on the latest workflow run - if you've been fast enough, it should still be running (since the linter has to `npm install`, which should take a minute or two, and the Heroku deploy takes equally as long).
+To monitor your newly configured workflow, whenever you push to main on your repository, visit the GitHub repo, and click _Actions_. Then click on the _Deploy_ workflow, and click on the latest workflow run - if you've been fast enough, it should still be running (since both the lint and test runs need to has to `npm install`, which should take a minute or two, and the Heroku deploy takes equally as long).
 
 ## Protect the `main` branch
 
