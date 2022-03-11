@@ -19,10 +19,6 @@ const PRISMA_ERROR = {
     }
 }
 
-const KEYS = {
-    PASSWORD: 'password',
-};
-
 const SECRET = process.env.SECRET;
 
 const GENRES = ['Fantasy', 'Horror', 'Science-Fiction', 'Romance', 'Adventure', 'History', 'Travel', 'Art', 'Health', 'Humor'];

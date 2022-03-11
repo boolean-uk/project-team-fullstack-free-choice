@@ -1,7 +1,7 @@
 const { prisma } = require('../utils/prisma');
-const { SERVER_ERROR, SERVER_SUCCESS, PRISMA_ERROR, KEYS } = require('../config.js');
+const { SERVER_ERROR, SERVER_SUCCESS, PRISMA_ERROR } = require('../config.js');
 
-const { hashedPassword, checkPassword, removeKeys } = require('../utils/auth.js');
+const { hashedPassword, checkPassword, createToken } = require('../utils/auth.js');
 
 const createUser = async (req, res) => {
 	const { username, password, email } = req.body;
@@ -21,9 +21,11 @@ const createUser = async (req, res) => {
 			},
 		});
 
-		createdUser = removeKeys(createdUser, KEYS.PASSWORD);
+		delete createdUser.password;
 
-		return res.status(SERVER_SUCCESS.OK.CODE).json({ data: createdUser });
+		const token = createToken({ id: createdUser.id});
+
+		res.status(SERVER_SUCCESS.OK.CODE).json({ data: createdUser, token: token});
 	} 
 	catch (error) {
 
@@ -47,7 +49,7 @@ const getUserById = async (req, res) => {
 		return res.status(SERVER_ERROR.NOT_FOUND.CODE).json({ error: SERVER_ERROR.NOT_FOUND.MESSAGE });
 	}
 
-	foundedUser = removeKeys(foundedUser, KEYS.PASSWORD);
+	delete foundedUser.password;
 
 	res.status(SERVER_SUCCESS.OK.CODE).json({ data: foundedUser});
 };
@@ -71,9 +73,11 @@ const loginUser = async (req, res) => {
         return res.status(SERVER_ERROR.UNAUTHORIZED.CODE).json({ error: SERVER_ERROR.UNAUTHORIZED.MESSAGE });
     }
 
-	foundUser = removeKeys(foundUser, KEYS.PASSWORD);
+	delete foundUser.password;
 
-    res.status(SERVER_SUCCESS.OK.CODE).json({ data: foundUser});
+	const token = createToken({ id: foundUser.id});
+
+    res.status(SERVER_SUCCESS.OK.CODE).json({ data: foundUser, token: token});
 };
 
 module.exports = {
