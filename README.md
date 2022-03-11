@@ -53,6 +53,6 @@ This is the second of the fullstack team projects. However, this time you have f
 
 ## Extension
 
-Add some unit testing to your project and CI/CD pipeline.
+Add some unit testing to both your project and your CI/CD pipeline.
 
-There are examples of unit tests in this repository, which are are included in this repo's CI/CD pipeline - see the [PR](.github/workflows/pull_request.yml) and [Deploy](.github/workflows/main.yml) GitHub Action workflows.
+There are examples of unit tests in this repository. They are also included in this repo's CI/CD pipeline - see the [PR](.github/workflows/pull_request.yml) and [Deploy](.github/workflows/main.yml) GitHub Action workflows.
