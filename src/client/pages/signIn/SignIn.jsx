@@ -1,10 +1,11 @@
 import React from 'react';
 import { useState } from 'react';
 import '../../styles/signIn.css'
+
 import Header from '../../components/Header'
 
 const URL = process.env.REACT_APP_API_URL;
-const loginEndpoint = '/user/login'; 
+const loginEndpoint = '/user/login';
 const loginURL = URL + loginEndpoint;
 
 const emptyUser = {
@@ -19,13 +20,15 @@ const SignIn = () => {
         const res = await fetch(url, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
-                Authorization: localStorage.getItem(),
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify(loginDetails)
         })
         const data = await res.json();
         console.log('token:', data)
+        //check data for error
+        //if error, return false
+        //else localStorage.setItem('auth', data.data) and return true
         return data;
     }
 
@@ -38,12 +41,11 @@ const SignIn = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        const token = await postLogin(loginURL, loginDetails);
-        console.log(token)
-        /*if (token) {
-            navigate('/home');
-        }*/
-
+        const hasLoggedIn = await postLogin(loginURL, loginDetails);
+        if (hasLoggedIn) {
+            //navigate('/home');
+        }
+        //else, invalid credentials
     }
 
     return (
