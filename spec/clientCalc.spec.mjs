@@ -45,7 +45,7 @@ describe('precedence', function() {
 
 describe('bracketed precedence', function() {
     it('correctly accounts for bracketed operator precedence', function() {
-        const answer = calculate("( 3 + 4 ) * 5");
+        const answer = calculate("(3 + 4) * 5");
         expect(answer).toEqual(35);
     })
 })
