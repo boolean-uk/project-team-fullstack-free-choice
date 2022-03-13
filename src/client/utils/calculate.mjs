@@ -59,9 +59,10 @@ const infixToRPN = (infix) => {
 
     const outputQueue = queue();
     const operatorStack = stack();
-    const infixArray = infix.split(" ")
+    
+    infix = infix.replace(/\s+/g, "");
+    const infixArray = infix.split(/([+\-*/^()])/)
     const myInfixArray = clean(infixArray);
-
     //console.log('infix', myInfixArray)
 
     for (const token of myInfixArray) {
