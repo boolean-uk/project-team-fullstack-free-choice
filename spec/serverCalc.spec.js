@@ -35,3 +35,17 @@ describe('power', function() {
         expect(answer).toEqual(10000);
     })
 })
+
+describe('precedence', function() {
+    it('correctly accounts for operator precedence', function() {
+        const answer = calculate("3 + 4 * 5");
+        expect(answer).toEqual(23);
+    })
+})
+
+describe('bracketed precedence', function() {
+    it('correctly accounts for bracketed operator precedence', function() {
+        const answer = calculate("( 3 + 4 ) * 5");
+        expect(answer).toEqual(35);
+    })
+})

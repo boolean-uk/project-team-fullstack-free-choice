@@ -16,6 +16,7 @@ export const App = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const answer = calculate(calculation);
+    //console.log('client answer', calculation, answer)
     if ( answer ) {
       setAnswer(answer)
     } else {
