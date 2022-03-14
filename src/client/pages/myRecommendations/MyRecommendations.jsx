@@ -96,24 +96,26 @@ const MyRecommendations = () => {
     const [displayConfirm, setDisplayConfirm] = useState(false)
     const [selectedBook, setSelectedBook] = useState(null)
 
+    const remove = (item, list) => {
+        const removeIndex = list.indexOf(item)
+        const deleteCount = 1
+        const newList = [...list]
+        newList.splice(removeIndex, deleteCount)
+        return newList
+    }
+
     const removeTag = (e) => {
         e.preventDefault()
         const removeItem = e.target.className
-        const removeIndex = tags.indexOf(removeItem)
-        const deleteCount = 1
-        const newTags = [...tags]
-        newTags.splice(removeIndex, deleteCount)
-        setTags(newTags)
+        const newList = remove(removeItem, tags)
+        setTags(newList)
     }
 
     const removeAuthor = (e) => {
         e.preventDefault()
         const removeItem = e.target.className
-        const removeIndex = authors.indexOf(removeItem)
-        const deleteCount = 1
-        const newAuthors = [...authors]
-        newAuthors.splice(removeIndex, deleteCount)
-        setAuthors(newAuthors)
+        const newList = remove(removeItem, authors)
+        setAuthors(newList)
     }
 
     const confirmRemoveBook = (e) => {
