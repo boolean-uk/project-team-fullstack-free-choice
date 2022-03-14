@@ -16,9 +16,14 @@
     padding: 0px 40px 0px 40px;
 }
 
+label {
+    font-size: xx-large;
+}
+
 #submit {
     margin-top: 25px;
     background: none;
+    height: 50px;
 }
 .signup-container {
     box-shadow: 0px 0px 10px #A29385;
@@ -33,9 +38,21 @@
 }
 
 input {
-    height: 25px;
+    height: 40px;
     margin-bottom: 10px;
     border-style: solid;
     border-color: #6A5441;
     border-width: 1px;
+    font-size: x-large;
+}
+
+.signin-header {
+    margin: none;
+    padding: none;
+    font-size: 3.2em;
+}
+
+.new-account {
+    color: #6A5441;
+    font-size: larger;
 }

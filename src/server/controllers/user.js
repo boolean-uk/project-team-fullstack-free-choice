@@ -5,7 +5,7 @@ const { hashedPassword, checkPassword, createToken } = require('../utils/auth.js
 
 const createUser = async (req, res) => {
 	const { username, password, email } = req.body;
-	
+
 	const passwordHashed = await hashedPassword(password);
 
 	const user = {
@@ -30,7 +30,8 @@ const createUser = async (req, res) => {
 	catch (error) {
 
 		if (error.code === PRISMA_ERROR.UNIQUE_CONSTRAINT_VIOLATION.CODE) {
-			return res.status(SERVER_ERROR.INTERNAL.CODE).json({error:PRISMA_ERROR.UNIQUE_CONSTRAINT_VIOLATION.CLIENT_MESSAGE_REGISTER,
+			return res.status(SERVER_ERROR.INTERNAL.CODE).json({
+				error: PRISMA_ERROR.UNIQUE_CONSTRAINT_VIOLATION.CLIENT_MESSAGE_REGISTER,
 			});
 		}
 	}
@@ -51,7 +52,7 @@ const getUserById = async (req, res) => {
 
 	delete foundedUser.password;
 
-	res.status(SERVER_SUCCESS.OK.CODE).json({ data: foundedUser});
+	res.status(SERVER_SUCCESS.OK.CODE).json({ data: foundedUser });
 };
 
 const loginUser = async (req, res) => {
@@ -63,15 +64,17 @@ const loginUser = async (req, res) => {
 		},
 	});
 
+	console.log('my user:', foundUser)
+
 	if (!foundUser) {
-        return res.status(SERVER_ERROR.UNAUTHORIZED.CODE).json({ error: SERVER_ERROR.UNAUTHORIZED.MESSAGE });
+		return res.status(SERVER_ERROR.UNAUTHORIZED.CODE).json({ error: SERVER_ERROR.UNAUTHORIZED.MESSAGE });
 	}
 
-    const checkPasswordMatch = await checkPassword(password, foundUser.password); 
+	const checkPasswordMatch = await checkPassword(password, foundUser.password);
 
-    if (!checkPasswordMatch) {
-        return res.status(SERVER_ERROR.UNAUTHORIZED.CODE).json({ error: SERVER_ERROR.UNAUTHORIZED.MESSAGE });
-    }
+	if (!checkPasswordMatch) {
+		return res.status(SERVER_ERROR.UNAUTHORIZED.CODE).json({ error: SERVER_ERROR.UNAUTHORIZED.MESSAGE });
+	}
 
 	delete foundUser.password;
 

@@ -1,0 +1,25 @@
+.header-container {
+    display: grid;
+    grid-template-columns: 100px auto;
+    align-items: center;
+    background-color: #897564;
+    height: 80px;
+    
+}
+.header-header {
+    margin-left: 50px;
+    color: #9CB873;
+}
+
+p {
+    color: #E4ECD6;
+}
+
+.links-container {
+    display: grid;
+    grid-template-columns: max-content max-content max-content max-content;
+    gap: 20px;
+    justify-self: end;
+    margin-right: 50px;
+    font-size: larger;
+}
