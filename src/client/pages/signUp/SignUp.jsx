@@ -4,7 +4,9 @@ import '../../styles/signUp.css'
 
 import Header from '../../components/Header';
 
-const URL = process.env.REACT_APP_API_URL;
+
+import URL from '../../config'
+
 const registerEndpoint = '/user/register';
 const registerURL = URL + registerEndpoint;
 
@@ -18,17 +20,17 @@ const SignUp = () => {
     const [userDetails, setUserDetails] = useState(emptyUser);
 
     const postRegister = async (url, userDetails) => {
-        await fetch(url, {
+
+        const res = await fetch(url, {
+
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(userDetails)
         })
-        res => res.json()
-        res => {
-            localStorage.setItem('token', res.token);
-        }
+        const data = await res.json()
+        localStorage.setItem('auth', data.token);
     }
 
     const handleChange = (e) => {

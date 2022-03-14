@@ -3,18 +3,34 @@ import { useState } from 'react';
 import '../../styles/signIn.css'
 
 import Header from '../../components/Header'
-
-const URL = process.env.REACT_APP_API_URL;
-const loginEndpoint = '/user/login';
-const loginURL = URL + loginEndpoint;
-
-const emptyUser = {
-    username: '',
-    password: ''
-}
+import { LOGIN_URL } from '../../config'
 
 const SignIn = () => {
+    const emptyUser = {
+        username: '',
+        password: ''
+    }
+
     const [loginDetails, setLoginDetails] = useState(emptyUser);
+    const [invalid, setInvalid] = useState(false)
+
+    const postLogin = async (url, loginDetails) => {
+        const res = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(loginDetails)
+        });
+        const data = await res.json();
+
+        if (data.error) {
+            return false;
+        }
+
+        localStorage.setItem('token', data.token);
+        return true;
+    }
 
     const postLogin = async (url, loginDetails) => {
         const res = await fetch(url, {
@@ -34,6 +50,7 @@ const SignIn = () => {
 
     const handleChange = e => {
         const { value, name } = e.target;
+
         setLoginDetails({
             ...loginDetails, [name]: value
         });
@@ -41,11 +58,12 @@ const SignIn = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        const hasLoggedIn = await postLogin(loginURL, loginDetails);
+        const hasLoggedIn = await postLogin(LOGIN_URL, loginDetails);
         if (hasLoggedIn) {
             //navigate('/home');
+        } else {
+            setInvalid(true)
         }
-        //else, invalid credentials
     }
 
     return (
@@ -76,6 +94,10 @@ const SignIn = () => {
                         />
                         <input type='submit' value='Go!' id='submit' />
                         <p className='new-account'>New to Bookr? Sign up here!</p>
+
+                        {invalid &&
+                            <p id='login-fail'>Invalid Credentials</p>
+                        }
                     </form>
                 </div>
                 <div className='gap-two'></div>

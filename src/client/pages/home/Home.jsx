@@ -1,9 +1,9 @@
 import { React } from 'react';
-// import { Link } from 'react-router-dom'; still need to create links to respective pages
-import '../../styles/landingPage.css';
+import { Link } from 'react-router-dom';
+import '../../styles/home.css';
 
 
-const LandingPage = () => {
+const Home = () => {
     return (
         <div className='main-container'>
             <div className='main'>
@@ -12,11 +12,15 @@ const LandingPage = () => {
                     <div className='buttons'>
                         <div className='loginContainer'>
                             <h4>Already have an account?</h4>
-                            <h3>Login</h3>
+                            <Link to='/signin'>
+                                <h3>Login</h3>
+                            </Link>
                         </div>
                         <div className='registerContainer'>
                             <h4>Want to create a new account?</h4> 
-                            <h3>Sign Up</h3>
+                            <Link to='/signup'>
+                                <h3>Sign Up</h3>
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -25,4 +29,4 @@ const LandingPage = () => {
     )
 }
 
-export default LandingPage;
+export default Home;
