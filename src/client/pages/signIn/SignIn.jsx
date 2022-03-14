@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import '../../styles/signIn.css'
 
-import Header from '../../config'
+import Header from '../../components/Header'
 import URL from '../../config'
 
 const loginEndpoint = '/user/login';

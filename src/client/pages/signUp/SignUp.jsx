@@ -4,7 +4,7 @@ import '../../styles/signUp.css'
 
 import Header from '../../components/Header';
 
-const URL = process.env.REACT_APP_API_URL;
+import URL from '../../config'
 const registerEndpoint = '/user/register';
 const registerURL = URL + registerEndpoint;
 
