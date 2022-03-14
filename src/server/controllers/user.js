@@ -1,11 +1,11 @@
 const { prisma } = require('../utils/prisma');
 const { SERVER_ERROR, SERVER_SUCCESS, PRISMA_ERROR, KEYS } = require('../config.js');
 
-const { hashedPassword, checkPassword, removeKeys } = require('../utils/auth.js');
+const { hashedPassword, checkPassword, removeKeys, createToken } = require('../utils/auth.js');
 
 const createUser = async (req, res) => {
 	const { username, password, email } = req.body;
-	
+
 	const passwordHashed = await hashedPassword(password);
 
 	const user = {
@@ -24,11 +24,12 @@ const createUser = async (req, res) => {
 		createdUser = removeKeys(createdUser, KEYS.PASSWORD);
 
 		return res.status(SERVER_SUCCESS.OK.CODE).json({ data: createdUser });
-	} 
+	}
 	catch (error) {
 
 		if (error.code === PRISMA_ERROR.UNIQUE_CONSTRAINT_VIOLATION.CODE) {
-			return res.status(SERVER_ERROR.INTERNAL.CODE).json({error:PRISMA_ERROR.UNIQUE_CONSTRAINT_VIOLATION.CLIENT_MESSAGE_REGISTER,
+			return res.status(SERVER_ERROR.INTERNAL.CODE).json({
+				error: PRISMA_ERROR.UNIQUE_CONSTRAINT_VIOLATION.CLIENT_MESSAGE_REGISTER,
 			});
 		}
 	}
@@ -49,7 +50,7 @@ const getUserById = async (req, res) => {
 
 	foundedUser = removeKeys(foundedUser, KEYS.PASSWORD);
 
-	res.status(SERVER_SUCCESS.OK.CODE).json({ data: foundedUser});
+	res.status(SERVER_SUCCESS.OK.CODE).json({ data: foundedUser });
 };
 
 const loginUser = async (req, res) => {
@@ -61,19 +62,23 @@ const loginUser = async (req, res) => {
 		},
 	});
 
+	console.log('my user:', foundUser)
+
 	if (!foundUser) {
-        return res.status(SERVER_ERROR.UNAUTHORIZED.CODE).json({ error: SERVER_ERROR.UNAUTHORIZED.MESSAGE });
+		return res.status(SERVER_ERROR.UNAUTHORIZED.CODE).json({ error: SERVER_ERROR.UNAUTHORIZED.MESSAGE });
 	}
 
-    const checkPasswordMatch = await checkPassword(password, foundUser.password); 
+	const checkPasswordMatch = await checkPassword(password, foundUser.password);
 
-    if (!checkPasswordMatch) {
-        return res.status(SERVER_ERROR.UNAUTHORIZED.CODE).json({ error: SERVER_ERROR.UNAUTHORIZED.MESSAGE });
-    }
+	if (!checkPasswordMatch) {
+		return res.status(SERVER_ERROR.UNAUTHORIZED.CODE).json({ error: SERVER_ERROR.UNAUTHORIZED.MESSAGE });
+	}
 
 	foundUser = removeKeys(foundUser, KEYS.PASSWORD);
 
-    res.status(SERVER_SUCCESS.OK.CODE).json({ data: foundUser});
+	const token = createToken(foundUser)
+
+	res.status(SERVER_SUCCESS.OK.CODE).json({ data: token });
 };
 
 module.exports = {
