@@ -2,9 +2,9 @@ import React from 'react';
 import { useState } from 'react';
 import '../../styles/signIn.css'
 
-import Header from '../../components/Header'
+import Header from '../../config'
+import URL from '../../config'
 
-const URL = process.env.REACT_APP_API_URL;
 const loginEndpoint = '/user/login';
 const loginURL = URL + loginEndpoint;
 
@@ -26,10 +26,12 @@ const SignIn = () => {
         })
         const data = await res.json();
         console.log('token:', data)
-        //check data for error
-        //if error, return false
-        //else localStorage.setItem('auth', data.data) and return true
-        return data;
+        if (data.error) {
+            return false
+        } else {
+            localStorage.setItem('auth', data.token)
+            return true
+        }
     }
 
     const handleChange = e => {
@@ -44,8 +46,10 @@ const SignIn = () => {
         const hasLoggedIn = await postLogin(loginURL, loginDetails);
         if (hasLoggedIn) {
             //navigate('/home');
+        } else {
+            const loginFail = document.getElementById('login-fail')
+            loginFail.innerText = 'Invalid Credentials'
         }
-        //else, invalid credentials
     }
 
     return (
@@ -76,6 +80,7 @@ const SignIn = () => {
                         />
                         <input type='submit' value='Go!' id='submit' />
                         <p className='new-account'>New to Bookr? Sign up here!</p>
+                        <p id='login-fail'></p>
                     </form>
                 </div>
                 <div className='gap-two'></div>
