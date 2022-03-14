@@ -40,14 +40,28 @@ const deleteBook = async ( req, res ) => {
 	res.status(SERVER_SUCCESS.POST_OK.CODE).json({ data: deletedBook });
 }
 
-const getBookByTag = async(req, res) => {
-	const { tag } = req.params;
+const getBookByAuthor = async(req, res) => {
+	const { author } = req.params;
+
+	const foundAuthor = await prisma.author.findUnique({
+		where: {
+			name: author
+		}
+	});
+
+	const book = await prisma.book.findUnique({
+		where: {
+			id: foundAuthor.id
+		}
+	})
+
+	res.status(SERVER_SUCCESS.POST_OK.CODE).json({ data: book });
 }
 
 module.exports = {
 	getAllBooks,
 	getBookById,
 	deleteBook,
-	getBookByTag
+	getBookByAuthor
 };
 
