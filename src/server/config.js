@@ -23,6 +23,7 @@ const SECRET = process.env.SECRET;
 
 const GENRES = ['Fantasy', 'Horror', 'Science-Fiction', 'Romance', 'Adventure', 'History', 'Travel', 'Art', 'Health', 'Humor'];
 
+const EXTERNAL_API = 'https://www.googleapis.com/books/v1/volumes?q=isbn:';
 
 module.exports = {
     SERVER_ERROR,
@@ -30,4 +31,6 @@ module.exports = {
     PRISMA_ERROR,
     GENRES,
     SECRET,
+    KEYS,
+    EXTERNAL_API
 }
