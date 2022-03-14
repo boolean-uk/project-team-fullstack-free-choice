@@ -12,6 +12,7 @@ const SignIn = () => {
     }
 
     const [loginDetails, setLoginDetails] = useState(emptyUser);
+    const [invalid, setInvalid] = useState(false)
 
     const postLogin = async (url, loginDetails) => {
         const res = await fetch(url, {
@@ -22,7 +23,7 @@ const SignIn = () => {
             body: JSON.stringify(loginDetails)
         });
         const data = await res.json();
-        
+
         if (data.error) {
             return false;
         }
@@ -33,7 +34,7 @@ const SignIn = () => {
 
     const handleChange = e => {
         const { value, name } = e.target;
-        
+
         setLoginDetails({
             ...loginDetails, [name]: value
         });
@@ -45,8 +46,7 @@ const SignIn = () => {
         if (hasLoggedIn) {
             //navigate('/home');
         } else {
-            const loginFail = document.getElementById('login-fail')
-            loginFail.innerText = 'Invalid Credentials'
+            setInvalid(true)
         }
     }
 
@@ -78,7 +78,9 @@ const SignIn = () => {
                         />
                         <input type='submit' value='Go!' id='submit' />
                         <p className='new-account'>New to Bookr? Sign up here!</p>
-                        <p id='login-fail'></p>
+                        {invalid &&
+                            <p id='login-fail'>Invalid Credentials</p>
+                        }
                     </form>
                 </div>
                 <div className='gap-two'></div>
