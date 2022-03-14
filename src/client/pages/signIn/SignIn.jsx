@@ -3,17 +3,14 @@ import { useState } from 'react';
 import '../../styles/signIn.css'
 
 import Header from '../../components/Header'
-import URL from '../../config'
-
-const loginEndpoint = '/user/login';
-const loginURL = URL + loginEndpoint;
-
-const emptyUser = {
-    username: '',
-    password: ''
-}
+import { LOGIN_URL } from '../../config'
 
 const SignIn = () => {
+    const emptyUser = {
+        username: '',
+        password: ''
+    }
+
     const [loginDetails, setLoginDetails] = useState(emptyUser);
 
     const postLogin = async (url, loginDetails) => {
@@ -23,19 +20,20 @@ const SignIn = () => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(loginDetails)
-        })
+        });
         const data = await res.json();
-        console.log('token:', data)
+        
         if (data.error) {
-            return false
-        } else {
-            localStorage.setItem('auth', data.token)
-            return true
+            return false;
         }
+
+        localStorage.setItem('auth', data.token);
+        return true;
     }
 
     const handleChange = e => {
         const { value, name } = e.target;
+        
         setLoginDetails({
             ...loginDetails, [name]: value
         });
@@ -43,7 +41,7 @@ const SignIn = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        const hasLoggedIn = await postLogin(loginURL, loginDetails);
+        const hasLoggedIn = await postLogin(LOGIN_URL, loginDetails);
         if (hasLoggedIn) {
             //navigate('/home');
         } else {
