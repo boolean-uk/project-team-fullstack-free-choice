@@ -23,7 +23,6 @@ const SignIn = () => {
             body: JSON.stringify(loginDetails)
         })
         const data = await res.json();
-        console.log('token:', data)
         //check data for error
         //if error, return false
         //else localStorage.setItem('auth', data.data) and return true
