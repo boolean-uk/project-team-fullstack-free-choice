@@ -2,7 +2,6 @@ import React from 'react';
 import { useState } from 'react';
 import '../../styles/signIn.css'
 
-import Header from '../../components/Header'
 import { LOGIN_URL } from '../../config'
 
 const SignIn = () => {
@@ -52,7 +51,6 @@ const SignIn = () => {
 
     return (
         <>
-            <Header />
             <div className='signup-page'>
                 <div className='gap-one'></div>
                 <div className='signup-container'>

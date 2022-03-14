@@ -1,7 +1,6 @@
 import React from 'react';
 //import { useState } from 'react';
 
-import Header from '../../components/Header'
 import Footer from '../../components/Footer'
 
 import '../../styles/match.css'
@@ -15,7 +14,6 @@ const MatchPage = () => {
     
     return(
           <>
-            <Header />
             <div className='match-page'>
               <div className='match-page-container'>
                 <button onClick={handleClick} id='cross'>&#10006;</button>

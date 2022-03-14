@@ -2,8 +2,6 @@ import React from 'react';
 import { useState } from 'react';
 import '../../styles/signUp.css'
 
-import Header from '../../components/Header';
-
 import URL from '../../config'
 const registerEndpoint = '/user/register';
 const registerURL = URL + registerEndpoint;
@@ -43,7 +41,6 @@ const SignUp = () => {
 
     return (
         <>
-            <Header />
             <div className='signup-page'>
                 <div className='gap-one'></div>
                 <div className='signup-container'>

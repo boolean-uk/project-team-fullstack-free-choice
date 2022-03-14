@@ -11,8 +11,10 @@
     color: #9CB873;
 }
 
-p {
+.links-container p,
+.link {
     color: #E4ECD6;
+    text-decoration: none;
 }
 
 .links-container {
