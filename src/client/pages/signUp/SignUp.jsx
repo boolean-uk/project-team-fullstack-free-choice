@@ -2,9 +2,6 @@ import React from 'react';
 import { useState } from 'react';
 import '../../styles/signUp.css'
 
-import Header from '../../components/Header';
-
-
 import REGISTER_URL from '../../config'
 
 const emptyUser = {
@@ -44,7 +41,6 @@ const SignUp = () => {
 
     return (
         <>
-            <Header />
             <div className='signup-page'>
                 <div className='gap-one'></div>
                 <div className='signup-container'>
