@@ -28,7 +28,7 @@ const SignIn = () => {
             return false;
         }
 
-        localStorage.setItem('auth', data.token);
+        localStorage.setItem('token', data.token);
         return true;
     }
 
