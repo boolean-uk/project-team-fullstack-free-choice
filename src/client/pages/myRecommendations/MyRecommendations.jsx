@@ -93,6 +93,7 @@ const MyRecommendations = () => {
     const [books] = useState(recommendedBooks)
     const [authors, setAuthors] = useState(recommendedAuthors)
     const [tags, setTags] = useState(recommendedTags)
+    const [displayConfirm, setDisplayConfirm] = useState(false)
 
     const removeTag = (e) => {
         e.preventDefault()
@@ -116,7 +117,7 @@ const MyRecommendations = () => {
 
     const confirmRemoveBook = (e) => {
         e.preventDefault()
-        document.getElementById('delete-popup').style.display = 'block'
+        setDisplayConfirm(true)
     }
 
     return (
@@ -196,13 +197,14 @@ const MyRecommendations = () => {
                         })}
                 </div>
             </div>
-            <div className='delete-popup' id='delete-popup'>
-                <h2>Are you sure you want to remove this book?</h2>
-                <button className='delete-yes' id='delete-yes'>Delete</button>
-                <button className='delete-no' id='delete-no'>Cancel</button>
-            </div>
+            {displayConfirm &&
+                <div className='delete-popup' id='delete-popup'>
+                    <h2>Are you sure you want to remove this book?</h2>
+                    <button className='delete-yes' id='delete-yes'>Delete</button>
+                    <button className='delete-no' id='delete-no'>Cancel</button>
+                </div>
+            }
         </>
-
     )
 }
 
