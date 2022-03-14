@@ -1,4 +1,4 @@
-import { React } from 'react';
+import { React, useState } from 'react';
 import '../../styles/myRecommendations.css';
 
 const recommendedBooks = [
@@ -66,7 +66,10 @@ const recommendedAuthors = [
     'J.R.R. Tolkien',
     'Stephen King',
     'Margaret Atwood',
-    'Lena Jones'
+    'Lena Jones',
+    'Agatha Christie',
+    'Jane Austen',
+    'Danielle Steel'
 ]
 
 const recommendedTags = [
@@ -74,43 +77,69 @@ const recommendedTags = [
     'Magic',
     'Slice of Life',
     'Cool',
-    'Nice'
+    'Nice',
+    'Snape :o',
+    'Violence',
+    'Swearing',
+    'Sweet'
 ]
 
+
+
 const MyRecommendations = () => {
+    const sliceStart = 0
+    const sliceEnd = 5
+
+    const [books] = useState(recommendedBooks)
+    const [authors] = useState(recommendedAuthors)
+    const [tags, setTags] = useState(recommendedTags)
+
+    const removeTag = (e) => {
+        e.preventDefault()
+        const removeItem = e.target.className
+        const removeIndex = tags.indexOf(removeItem)
+        console.log(removeIndex)
+        const deleteCount = 1
+        const newTags = [...tags]
+        newTags.splice(removeIndex, deleteCount)
+        setTags(newTags)
+    }
+
     return (
         <div className='recommended'>
             <div className='top-container'>
                 <h2>Your Top Items</h2>
-                <div className='tags-container'>
-                    <h3>Top Tags</h3>
-                    {recommendedTags &&
-                        recommendedTags.map((tag, index) => {
-                            return (
-                                <div className='tag' key={index}>
-                                    <p>{tag}</p>
-                                    <button>Remove</button>
-                                </div>
-                            )
-                        })}
-                </div>
-                <div className='authors-container'>
-                    <h3>Top Authors</h3>
-                    {recommendedAuthors &&
-                        recommendedAuthors.map((author, index) => {
-                            return (
-                                <div className='author' key={index}>
-                                    <p>{author}</p>
-                                    <button>Remove</button>
-                                </div>
-                            )
-                        })}
+                <div className='tags-and-authors'>
+                    <div className='tags-container'>
+                        <h3>Top Tags</h3>
+                        {tags &&
+                            tags.slice(sliceStart, sliceEnd).map((tag, index) => {
+                                return (
+                                    <div className='tag' key={index}>
+                                        <p>{tag}</p>
+                                        <button className={tag} onClick={e => removeTag(e)}>Remove</button>
+                                    </div>
+                                )
+                            })}
+                    </div>
+                    <div className='authors-container'>
+                        <h3>Top Authors</h3>
+                        {authors &&
+                            authors.slice(sliceStart, sliceEnd).map((author, index) => {
+                                return (
+                                    <div className='author' key={index}>
+                                        <p>{author}</p>
+                                        <button className={author}>Remove</button>
+                                    </div>
+                                )
+                            })}
+                    </div>
                 </div>
             </div>
             <div className='books-container'>
                 <h2>Your Saved Books</h2>
-                {recommendedBooks &&
-                    recommendedBooks.map((book, index) => {
+                {books &&
+                    books.map((book, index) => {
                         return (
                             <div className='book' key={index}>
                                 <div className='main-book-area'>
@@ -131,7 +160,7 @@ const MyRecommendations = () => {
                                     {book.genres &&
                                         book.genres.map((genre, index) => {
                                             return (
-                                                <div key={index}>
+                                                <div key={index} className='book-genre'>
                                                     <p>{genre}</p>
                                                 </div>
                                             )
@@ -139,7 +168,7 @@ const MyRecommendations = () => {
                                     {book.tags &&
                                         book.tags.map((tag, index) => {
                                             return (
-                                                <div key={index}>
+                                                <div key={index} className='book-tag'>
                                                     <p>{tag}</p>
                                                 </div>
                                             )

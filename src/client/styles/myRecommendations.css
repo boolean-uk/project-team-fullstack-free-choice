@@ -1,6 +1,15 @@
+.recommended h2 {
+    font-size: xx-large;
+}
+
+.recommended h3 {
+    margin: none;
+}
+
 .recommended {
     display: grid;
-    grid-template-columns: 200px auto;
+    grid-template-columns: 275px auto;
+    color: #6A5441;
 }
 
 .tags-container,
@@ -17,8 +26,12 @@
     gap: 5px;
 }
 
-.tag button {
+.tag button,
+.author button {
     height: 20px;
+    background-color: #d1c1b3;
+    border: none;
+    color: #6A5441;
 }
 
 .books-container {
@@ -29,17 +42,37 @@
 .main-book-area {
     display: grid;
     grid-template-columns: 250px auto;
+    gap: 20px;
 }
 
 .book-tags {
     display: grid;
-    grid-template-columns: repeat(auto-fit, 150px);
+    grid-template-columns: repeat(auto-fit, 125px);
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.book-genre,
+.book-tag {
+    background-color: #d1c1b3;
+    text-align: center;
+    border-radius: 30px;
 }
 
 img {
     width: 250px;
 }
 
-.top-container {
+.tags-and-authors,
+.book {
     box-shadow: 0px 0px 10px #A29385;
+}
+
+.tags-and-authors {
+    padding: 10px 10px 10px 10px;
+}
+
+.book {
+    margin-top: 20px;
+    padding: 10px 10px 10px 10px;
 }
