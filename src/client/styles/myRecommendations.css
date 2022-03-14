@@ -34,6 +34,15 @@
     color: #6A5441;
 }
 
+.book button {
+    background-color: #a89685;
+    border: none;
+    color: #413123;
+    margin-left: auto;
+    padding: 0px 50px 0px 50px;
+    border-radius: 30px;
+}
+
 .books-container {
     margin-left: 75px;
     text-align: start;
@@ -75,4 +84,14 @@ img {
 .book {
     margin-top: 20px;
     padding: 10px 10px 10px 10px;
+}
+
+.delete-popup {
+    display: none;
+    position: fixed;
+    top: 0px;
+    left: auto;
+    border: 3px solid #f1f1f1;
+    z-index: 9;
+    background-color: #d1c1b3;
 }
