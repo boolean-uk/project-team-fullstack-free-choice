@@ -31,6 +31,5 @@ module.exports = {
     PRISMA_ERROR,
     GENRES,
     SECRET,
-    KEYS,
     EXTERNAL_API
 }
