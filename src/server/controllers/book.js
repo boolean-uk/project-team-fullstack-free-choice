@@ -37,6 +37,7 @@ const deleteBook = async ( req, res ) => {
 			}
 		}
 	})
+
 	res.status(SERVER_SUCCESS.POST_OK.CODE).json({ data: deletedBook });
 }
 
@@ -48,6 +49,10 @@ const getBookByAuthor = async(req, res) => {
 			name: author
 		}
 	});
+
+	if (!foundAuthor) {
+		res.status(SERVER_ERROR.NOT_FOUND.CODE).json({ error: SERVER_ERROR.NOT_FOUND.MESSAGE });
+	}
 
 	const book = await prisma.book.findUnique({
 		where: {
@@ -66,6 +71,10 @@ const getBookByGenre = async(req, res) => {
 			name: genre
 		}
 	});
+
+	if (!foundGenre) {
+		res.status(SERVER_ERROR.NOT_FOUND.CODE).json({ error: SERVER_ERROR.NOT_FOUND.MESSAGE });
+	}
 
 	const book = await prisma.book.findUnique({
 		where: {
