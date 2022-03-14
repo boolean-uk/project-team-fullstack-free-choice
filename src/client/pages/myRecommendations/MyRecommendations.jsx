@@ -90,10 +90,11 @@ const MyRecommendations = () => {
     const sliceStart = 0
     const sliceEnd = 5
 
-    const [books] = useState(recommendedBooks)
+    const [books, setBooks] = useState(recommendedBooks)
     const [authors, setAuthors] = useState(recommendedAuthors)
     const [tags, setTags] = useState(recommendedTags)
     const [displayConfirm, setDisplayConfirm] = useState(false)
+    const [selectedBook, setSelectedBook] = useState(null)
 
     const removeTag = (e) => {
         e.preventDefault()
@@ -117,7 +118,23 @@ const MyRecommendations = () => {
 
     const confirmRemoveBook = (e) => {
         e.preventDefault()
+        const selectedTitle = e.target.className
+        const selectedBookIndex = books.findIndex(x => x.title === selectedTitle)
+        setSelectedBook(selectedBookIndex)
         setDisplayConfirm(true)
+    }
+
+    const closeConfirm = () => {
+        setDisplayConfirm(false)
+        setSelectedBook(null)
+    }
+
+    const removeBook = () => {
+        const newBooks = [...books]
+        const deleteCount = 1
+        newBooks.splice(selectedBook, deleteCount)
+        setBooks(newBooks)
+        setDisplayConfirm(false)
     }
 
     return (
@@ -200,8 +217,8 @@ const MyRecommendations = () => {
             {displayConfirm &&
                 <div className='delete-popup' id='delete-popup'>
                     <h2>Are you sure you want to remove this book?</h2>
-                    <button className='delete-yes' id='delete-yes'>Delete</button>
-                    <button className='delete-no' id='delete-no'>Cancel</button>
+                    <button className='delete-yes' id='delete-yes' onClick={e => removeBook(e)}>Delete</button>
+                    <button className='delete-no' id='delete-no' onClick={e => closeConfirm(e)}>Cancel</button>
                 </div>
             }
         </>
