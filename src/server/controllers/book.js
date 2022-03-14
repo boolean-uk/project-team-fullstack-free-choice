@@ -58,10 +58,29 @@ const getBookByAuthor = async(req, res) => {
 	res.status(SERVER_SUCCESS.POST_OK.CODE).json({ data: book });
 }
 
+const getBookByGenre = async(req, res) => {
+	const { genre } = req.params;
+
+	const foundGenre = await prisma.genre.findUnique({
+		where: {
+			name: genre
+		}
+	});
+
+	const book = await prisma.book.findUnique({
+		where: {
+			id: foundGenre.id
+		}
+	})
+
+	res.status(SERVER_SUCCESS.POST_OK.CODE).json({ data: book });
+}
+
 module.exports = {
 	getAllBooks,
 	getBookById,
 	deleteBook,
-	getBookByAuthor
+	getBookByAuthor,
+	getBookByGenre
 };
 
