@@ -21,24 +21,6 @@ const SignIn = () => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(loginDetails)
-        });
-        const data = await res.json();
-
-        if (data.error) {
-            return false;
-        }
-
-        localStorage.setItem('token', data.token);
-        return true;
-    }
-
-    const postLogin = async (url, loginDetails) => {
-        const res = await fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(loginDetails)
         })
         const data = await res.json();
         console.log('token:', data)
