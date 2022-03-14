@@ -1,5 +1,6 @@
 import { React, useState } from 'react';
 import '../../styles/myRecommendations.css';
+import Header from '../../components/Header';
 
 const recommendedBooks = [
     {
@@ -139,6 +140,7 @@ const MyRecommendations = () => {
 
     return (
         <>
+            <Header />
             <div className='recommended'>
                 <div className='top-container'>
                     <h2>Your Top Items</h2>
