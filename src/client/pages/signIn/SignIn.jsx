@@ -20,15 +20,12 @@ const SignIn = () => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(loginDetails)
-        });
+        })
         const data = await res.json();
-
-        if (data.error) {
-            return false;
-        }
-
-        localStorage.setItem('token', data.token);
-        return true;
+        //check data for error
+        //if error, return false
+        //else localStorage.setItem('auth', data.data) and return true
+        return data;
     }
 
     const handleChange = e => {
@@ -76,6 +73,7 @@ const SignIn = () => {
                         />
                         <input type='submit' value='Go!' id='submit' />
                         <p className='new-account'>New to Bookr? Sign up here!</p>
+
                         {invalid &&
                             <p id='login-fail'>Invalid Credentials</p>
                         }

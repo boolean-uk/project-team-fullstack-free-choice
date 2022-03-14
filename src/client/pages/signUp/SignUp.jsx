@@ -2,9 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import '../../styles/signUp.css'
 
-import URL from '../../config'
-const registerEndpoint = '/user/register';
-const registerURL = URL + registerEndpoint;
+import REGISTER_URL from '../../config'
 
 const emptyUser = {
     email: '',
@@ -16,7 +14,9 @@ const SignUp = () => {
     const [userDetails, setUserDetails] = useState(emptyUser);
 
     const postRegister = async (url, userDetails) => {
+
         const res = await fetch(url, {
+
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -36,7 +36,7 @@ const SignUp = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        await postRegister(registerURL, userDetails);
+        await postRegister(REGISTER_URL, userDetails);
     }
 
     return (
