@@ -88,6 +88,8 @@ const seedGroups = async () => {
                 number: GROUPS[i]
             }
         });
+
+        console.log('created group:', createdGroup);
     }
 }
 
