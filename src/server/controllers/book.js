@@ -85,11 +85,24 @@ const getBookByGenre = async(req, res) => {
 	res.status(SERVER_SUCCESS.POST_OK.CODE).json({ data: book });
 }
 
+const getBookByGroupId = async(req, res) => {
+	const { id } = req.params;
+	
+	const booksGroup = await prisma.book.findUnique({
+		where: {
+			id
+		}
+	});
+
+	res.status(SERVER_SUCCESS.OK.CODE).json({ data: booksGroup });
+}
+
 module.exports = {
 	getAllBooks,
 	getBookById,
 	deleteBook,
 	getBookByAuthor,
-	getBookByGenre
+	getBookByGenre,
+	getBookByGroupId
 };
 

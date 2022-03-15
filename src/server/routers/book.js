@@ -5,7 +5,8 @@ const {
     getBookById,
     deleteBook,
     getBookByAuthor,
-    getBookByGenre
+    getBookByGenre,
+    getBookByGroupId
 } = require('../controllers/book.js');
 
 const router = express.Router();
@@ -19,5 +20,7 @@ router.delete('/:id', deleteBook);
 router.get('/author/:author', getBookByAuthor);
 
 router.get('/genre/:genre', getBookByGenre);
+
+router.get('/group/:id', getBookByGroupId);
 
 module.exports = router;

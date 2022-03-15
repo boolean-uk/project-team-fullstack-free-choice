@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import '../../styles/signUp.css'
 
-import REGISTER_URL from '../../config'
+import {REGISTER_URL} from '../../config'
 
 const emptyUser = {
     email: '',
@@ -24,6 +24,7 @@ const SignUp = () => {
             body: JSON.stringify(userDetails)
         })
         const data = await res.json()
+        
         localStorage.setItem('auth', data.token);
     }
 
