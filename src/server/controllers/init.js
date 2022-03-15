@@ -1,7 +1,8 @@
 const axios = require('axios');
-const { SERVER_SUCCESS, EXTERNAL_API, GROUPS } = require('../config');
+const { SERVER_SUCCESS, EXTERNAL_API, GROUPS, NUMBER_OF_USERS_TO_GENERATE } = require('../config');
 const { BOOKS_TO_SEED } = require('../data');
 const { prisma } = require('../utils/prisma');
+const { fakeUsers } = require('../utils/faker');
 
 const ITEMS_INDEX = 0;
 
@@ -103,6 +104,22 @@ const seedBookDatabase = async (req, res) => {
     res.status(SERVER_SUCCESS.POST_OK.CODE).json('Books seeded succesfully');
 }
 
+
+const seedUsers = async(req, res) => {
+    for(let i=0; i< NUMBER_OF_USERS_TO_GENERATE; i++){
+        const fakedUser = fakeUsers();
+
+        const user = await prisma.user.create({
+            data: {
+                ...fakedUser
+            }
+        })
+        console.log('user created', user);
+    }
+    res.status(SERVER_SUCCESS.POST_OK.CODE).json('users seeded succesfully');
+}
+
 module.exports = {
-    seedBookDatabase
+    seedBookDatabase,
+    seedUsers
 }

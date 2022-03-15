@@ -25,6 +25,7 @@ const GENRES = ['Fantasy', 'Horror', 'Science-Fiction', 'Romance', 'Adventure', 
 
 const EXTERNAL_API = 'https://www.googleapis.com/books/v1/volumes?q=isbn:';
 
+const NUMBER_OF_USERS_TO_GENERATE = 10;
 const GROUPS = [1, 2, 3];
 
 module.exports = {
@@ -34,5 +35,6 @@ module.exports = {
     GENRES,
     SECRET,
     EXTERNAL_API,
-    GROUPS
+    GROUPS,
+    NUMBER_OF_USERS_TO_GENERATE
 }
