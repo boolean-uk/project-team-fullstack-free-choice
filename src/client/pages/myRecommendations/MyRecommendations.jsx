@@ -150,7 +150,7 @@ const MyRecommendations = () => {
                             {tags &&
                                 tags.slice(sliceStart, sliceEnd).map((tag, index) => {
                                     return (
-                                        <div className='tag' key={index}>
+                                        <div className='top-tag' key={index}>
                                             <p>{tag}</p>
                                             <button className={tag} onClick={e => removeTag(e)}>Remove</button>
                                         </div>

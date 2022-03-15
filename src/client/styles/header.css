@@ -1,18 +1,20 @@
+* {
+    color: #381919;
+}
+
 .header-container {
     display: grid;
     grid-template-columns: 100px auto;
     align-items: center;
-    background-color: #897564;
+    background-color: #af5c5c;
     height: 80px;
-    
-}
-.header-header {
-    margin-left: 50px;
-    color: #9CB873;
 }
 
-.header p {
-    color: #E4ECD6;
+.header-header {
+    margin-left: 50px;
+}
+
+.link{
     text-decoration: none;
 }
 
@@ -24,3 +26,4 @@
     margin-right: 50px;
     font-size: larger;
 }
+

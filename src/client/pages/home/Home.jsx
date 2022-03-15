@@ -13,13 +13,13 @@ const Home = () => {
                         <div className='loginContainer'>
                             <h4>Already have an account?</h4>
                             <Link to='/signin'>
-                                <h3>Login</h3>
+                                <h3 className='sign-link'>Login</h3>
                             </Link>
                         </div>
                         <div className='registerContainer'>
                             <h4>Want to create a new account?</h4> 
                             <Link to='/signup'>
-                                <h3>Sign Up</h3>
+                                <h3 className='sign-link'>Sign Up</h3>
                             </Link>
                         </div>
                     </div>
