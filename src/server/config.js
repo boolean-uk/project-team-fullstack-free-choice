@@ -25,11 +25,14 @@ const GENRES = ['Fantasy', 'Horror', 'Science-Fiction', 'Romance', 'Adventure', 
 
 const EXTERNAL_API = 'https://www.googleapis.com/books/v1/volumes?q=isbn:';
 
+const GROUPS = [1, 2, 3];
+
 module.exports = {
     SERVER_ERROR,
     SERVER_SUCCESS,
     PRISMA_ERROR,
     GENRES,
     SECRET,
-    EXTERNAL_API
+    EXTERNAL_API,
+    GROUPS
 }
