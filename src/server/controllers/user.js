@@ -1,9 +1,7 @@
 const { prisma } = require('../utils/prisma');
 const { SERVER_ERROR, SERVER_SUCCESS, PRISMA_ERROR } = require('../config.js');
 
-
 const { hashedPassword, checkPassword, createToken } = require('../utils/auth.js');
-
 
 const createUser = async (req, res) => {
 	const { username, password, email } = req.body;
@@ -26,7 +24,6 @@ const createUser = async (req, res) => {
 		delete createdUser.password;
 
 		const token = await createToken({ id: createdUser.id});
-
 
 		res.status(SERVER_SUCCESS.OK.CODE).json({ data: createdUser, token: token});
 	} 
@@ -67,8 +64,6 @@ const loginUser = async (req, res) => {
 		},
 	});
 
-	console.log('my user:', foundUser)
-
 	if (!foundUser) {
 		return res.status(SERVER_ERROR.UNAUTHORIZED.CODE).json({ error: SERVER_ERROR.UNAUTHORIZED.MESSAGE });
 	}
@@ -81,10 +76,9 @@ const loginUser = async (req, res) => {
 
 	delete foundUser.password;
 
-
 	const token = await createToken({ id: foundUser.id});
-    res.status(SERVER_SUCCESS.OK.CODE).json({ data: foundUser, token: token});
 
+    res.status(SERVER_SUCCESS.OK.CODE).json({ data: foundUser, token: token});
 };
 
 module.exports = {

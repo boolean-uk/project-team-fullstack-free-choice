@@ -16,7 +16,7 @@ const getBookById = async (req, res) => {
 
 	const foundBook = await prisma.book.findUnique({
 		where: {
-			id,
+			id
 		},
 	});
 
@@ -61,10 +61,23 @@ const getBookByAuthorId = async(req, res) => {
 	res.status(SERVER_SUCCESS.POST_OK.CODE).json({ data: book });
 }
 
+const getBookByGroupId = async(req, res) => {
+	const id = Number(req.params.id);
+	
+	const booksGroup = await prisma.book.findMany({
+		where: {
+			groupId: id
+		}
+	});
+
+	res.status(SERVER_SUCCESS.OK.CODE).json({ data: booksGroup });
+}
+
 module.exports = {
 	getAllBooks,
 	getBookById,
 	deleteBook,
+	getBookByGroupId,
 	getBookByAuthorId
 };
 
