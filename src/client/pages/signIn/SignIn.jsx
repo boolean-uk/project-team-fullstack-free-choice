@@ -3,12 +3,15 @@ import { useState } from 'react';
 import '../../styles/signIn.css'
 
 import { LOGIN_URL } from '../../config'
+import { useNavigate } from 'react-router';
 
 const SignIn = () => {
     const emptyUser = {
         username: '',
         password: ''
     }
+
+    const navigate = useNavigate()
 
     const [loginDetails, setLoginDetails] = useState(emptyUser);
     const [invalid, setInvalid] = useState(false)
@@ -22,10 +25,12 @@ const SignIn = () => {
             body: JSON.stringify(loginDetails)
         })
         const data = await res.json();
-        //check data for error
-        //if error, return false
-        //else localStorage.setItem('auth', data.data) and return true
-        return data;
+        if (data.error) {
+            return false;
+        }
+        console.log(data)
+        localStorage.setItem('token', data.token);
+        return true;
     }
 
     const handleChange = e => {
@@ -40,7 +45,7 @@ const SignIn = () => {
         e.preventDefault()
         const hasLoggedIn = await postLogin(LOGIN_URL, loginDetails);
         if (hasLoggedIn) {
-            //navigate('/home');
+            navigate('/match');
         } else {
             setInvalid(true)
         }
