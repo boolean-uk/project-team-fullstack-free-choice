@@ -12,7 +12,7 @@ const getAllBooks = async (req, res) => {
 };
 
 const getBookById = async (req, res) => {
-	const { id } = req.params;
+	const id = Number(req.params.id);
 
 	const foundBook = await prisma.book.findUnique({
 		where: {
@@ -28,25 +28,23 @@ const getBookById = async (req, res) => {
 };
 
 const deleteBook = async ( req, res ) => {
-	const { id } = req.params;
+	const id = Number(req.params.id);
 
 	const deletedBook = await prisma.book.delete({
 		where: {
-			id: {
-				id: Number(id)
-			}
+			id
 		}
 	})
 
 	res.status(SERVER_SUCCESS.POST_OK.CODE).json({ data: deletedBook });
 }
 
-const getBookByAuthor = async(req, res) => {
-	const { author } = req.params;
+const getBookByAuthorId = async(req, res) => {
+	const id = Number(req.params.id);
 
 	const foundAuthor = await prisma.author.findUnique({
 		where: {
-			name: author
+			id
 		}
 	});
 
@@ -63,33 +61,10 @@ const getBookByAuthor = async(req, res) => {
 	res.status(SERVER_SUCCESS.POST_OK.CODE).json({ data: book });
 }
 
-const getBookByGenre = async(req, res) => {
-	const { genre } = req.params;
-
-	const foundGenre = await prisma.genre.findUnique({
-		where: {
-			name: genre
-		}
-	});
-
-	if (!foundGenre) {
-		res.status(SERVER_ERROR.NOT_FOUND.CODE).json({ error: SERVER_ERROR.NOT_FOUND.MESSAGE });
-	}
-
-	const book = await prisma.book.findUnique({
-		where: {
-			id: foundGenre.id
-		}
-	})
-
-	res.status(SERVER_SUCCESS.POST_OK.CODE).json({ data: book });
-}
-
 module.exports = {
 	getAllBooks,
 	getBookById,
 	deleteBook,
-	getBookByAuthor,
-	getBookByGenre
+	getBookByAuthorId
 };
 
