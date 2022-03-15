@@ -1,22 +1,21 @@
 const axios = require('axios');
-const { SERVER_SUCCESS, EXTERNAL_API } = require('../config');
+const { SERVER_SUCCESS, EXTERNAL_API, GROUPS } = require('../config');
+const { BOOKS_TO_SEED } = require('../data');
 const { prisma } = require('../utils/prisma');
 
 const ITEMS_INDEX = 0;
 
-const getISBN = (industryIdentifiers) => {
-    const indIdentifier = industryIdentifiers.find(indId => indId.type === 'ISBN_13');
+const cleanBookData = (rawData, isbn) => {
+    let description = rawData.description;
 
-    return indIdentifier?.identifier;
-}
-
-const cleanBookData = (rawData) => {
-    const isbn = getISBN(rawData.industryIdentifiers);
+    if(!rawData.description){
+        description = 'N/A';
+    }
 
     return {
         title: rawData.title,
         isbn: isbn,
-        description: rawData.description,
+        description: description,
         authors: rawData.authors,
         cover: rawData.imageLinks.thumbnail
     }
@@ -24,19 +23,19 @@ const cleanBookData = (rawData) => {
 
 const getBookFromAPI = async (isbn) => {
     const rawBookData = await axios.get(EXTERNAL_API + isbn);
-    const book = cleanBookData(rawBookData.data.items[ITEMS_INDEX].volumeInfo);
+    const book = cleanBookData(rawBookData.data.items[ITEMS_INDEX].volumeInfo, isbn);
     
     return book;
 }
 
-const addBookToDB = async (req, res) => {
-    const isbn = req.id;
+const addBookToDB = async (bookToSeed) => {
+    const { isbn, group, tags } = bookToSeed;
     const book = await getBookFromAPI(isbn);
 
     const createdBook = await prisma.book.create({
         data: {
             title: book.title,
-            isbn: book.isbn,
+            isbn: isbn,
             description: book.description,
             cover: book.cover,
             authors: {
@@ -50,16 +49,58 @@ const addBookToDB = async (req, res) => {
                         },
                     };
                 }),
-            }
+            },
+            tags: {
+                connectOrCreate: tags.map((tag) => {
+                    return {
+                        where: {
+                            name: tag,
+                        },
+                        create: {
+                            name: tag,
+                        },
+                    };
+                }),
+            },
+            group: {
+                connectOrCreate: {
+                    where: {
+                        id: group
+                    },
+                    create: {
+                        number: group
+                    }
+                }
+            }            
         },
         include:{
             authors: true
         }
     });
 
-    res.status(SERVER_SUCCESS.OK.CODE).json({ data: createdBook });
+    console.log(createdBook);
+}
+
+const seedGroups = async () => {
+    for(let i = 0; i < GROUPS.length; i++){
+        const createdGroup = await prisma.group.create({
+            data: {
+                number: GROUPS[i]
+            }
+        });
+    }
+}
+
+const seedBookDatabase = async (req, res) => {
+    await seedGroups();
+
+    for(let i = 0; i < BOOKS_TO_SEED.length; i++){
+        await addBookToDB(BOOKS_TO_SEED[i]);
+    }
+
+    res.status(SERVER_SUCCESS.POST_OK.CODE).json('Books seeded succesfully');
 }
 
 module.exports = {
-    addBookToDB
+    seedBookDatabase
 }

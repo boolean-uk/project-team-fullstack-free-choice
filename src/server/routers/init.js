@@ -1,11 +1,11 @@
 const express = require('express');
 
 const {
-    addBookToDB
+    seedBookDatabase
 } = require('../controllers/init.js');
 
 const router = express.Router();
 
-router.post('/', addBookToDB);
+router.post('/', seedBookDatabase);
 
 module.exports = router;
