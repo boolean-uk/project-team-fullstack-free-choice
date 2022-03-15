@@ -51,7 +51,9 @@ model Book {
   genres          Genre[]
   recommendations Recommendation[]
   tags            Tag[]
-  }
+  group           Group             @relation(fields: [groupId], references: [id])
+  groupId         Int
+}
 
 model Author {
   id          Int           @id @default(autoincrement())
@@ -72,4 +74,12 @@ model Recommendation {
   isStored    Boolean
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
+}
+
+model Group {
+  id          Int           @id @default(autoincrement())
+  number      Int
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  books       Book[]
 }
