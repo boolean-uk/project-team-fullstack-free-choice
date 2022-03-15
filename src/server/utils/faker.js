@@ -7,8 +7,8 @@ const fakeUsers = () => {
 
     const fakeUser = {
         username: fakeUsername,
-        password: fakeEmail,
-        email: fakedPassword
+        email: fakeEmail,
+        password: fakedPassword
     }
     
     return fakeUser
