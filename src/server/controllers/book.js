@@ -16,7 +16,7 @@ const getBookById = async (req, res) => {
 
 	const foundBook = await prisma.book.findUnique({
 		where: {
-			id: Number(id)
+			id
 		},
 	});
 
@@ -62,11 +62,11 @@ const getBookByAuthorId = async(req, res) => {
 }
 
 const getBookByGroupId = async(req, res) => {
-	const { id } = req.params;
-
+	const id = Number(req.params.id);
+	
 	const booksGroup = await prisma.book.findMany({
 		where: {
-			groupId: Number(id)
+			groupId: id
 		}
 	});
 
