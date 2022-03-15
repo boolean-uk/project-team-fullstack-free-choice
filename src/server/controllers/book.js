@@ -54,7 +54,7 @@ const getBookByAuthorId = async(req, res) => {
 
 	const book = await prisma.book.findUnique({
 		where: {
-			id: Number(foundAuthor.id)
+			id: foundAuthor.id
 		}
 	})
 
