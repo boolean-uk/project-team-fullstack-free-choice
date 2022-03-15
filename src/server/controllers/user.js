@@ -38,21 +38,21 @@ const createUser = async (req, res) => {
 };
 
 const getUserById = async (req, res) => {
-	const { id } = req.params;
+	const id = Number(req.params.id);
 
-	let foundedUser = await prisma.user.findUnique({
+	const foundUser = await prisma.user.findUnique({
 		where: {
 			id,
 		},
 	});
 
-	if (!foundedUser) {
+	if (!foundUser) {
 		return res.status(SERVER_ERROR.NOT_FOUND.CODE).json({ error: SERVER_ERROR.NOT_FOUND.MESSAGE });
 	}
 
-	delete foundedUser.password;
+	delete foundUser.password;
 
-	res.status(SERVER_SUCCESS.OK.CODE).json({ data: foundedUser });
+	res.status(SERVER_SUCCESS.OK.CODE).json({ data: foundUser });
 };
 
 const loginUser = async (req, res) => {
