@@ -124,7 +124,7 @@ const BOOKS_TO_SEED = [
         ]
     },    
     {
-        isbn: '9781250773012',
+        isbn: '9780812550702',
         group: 3,
         tags: [
            'Games',
@@ -142,7 +142,7 @@ const BOOKS_TO_SEED = [
         ]
     },    
     {
-        isbn: '9781473619814',
+        isbn: '9780062444134',
         group: 3,
         tags: [
             'Cloning',
