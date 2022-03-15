@@ -13,10 +13,10 @@ const getAllBooks = async (req, res) => {
 
 const getBookById = async (req, res) => {
 	const { id } = req.params;
-
+	
 	const foundBook = await prisma.book.findUnique({
 		where: {
-			id,
+			id: Number(id)
 		},
 	});
 
@@ -56,7 +56,7 @@ const getBookByAuthor = async(req, res) => {
 
 	const book = await prisma.book.findUnique({
 		where: {
-			id: foundAuthor.id
+			id: Number(foundAuthor.id)
 		}
 	})
 
@@ -78,7 +78,7 @@ const getBookByGenre = async(req, res) => {
 
 	const book = await prisma.book.findUnique({
 		where: {
-			id: foundGenre.id
+			id: Number(foundGenre.id)
 		}
 	})
 
@@ -87,10 +87,10 @@ const getBookByGenre = async(req, res) => {
 
 const getBookByGroupId = async(req, res) => {
 	const { id } = req.params;
-	
-	const booksGroup = await prisma.book.findUnique({
+
+	const booksGroup = await prisma.book.findMany({
 		where: {
-			id
+			groupId: Number(id)
 		}
 	});
 
@@ -103,6 +103,6 @@ module.exports = {
 	deleteBook,
 	getBookByAuthor,
 	getBookByGenre,
-	getBookByGroupId
+	getBookByGroupId,
 };
 

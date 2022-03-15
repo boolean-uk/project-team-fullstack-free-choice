@@ -6,7 +6,7 @@ const {
     deleteBook,
     getBookByAuthor,
     getBookByGenre,
-    getBookByGroupId
+    getBookByGroupId,
 } = require('../controllers/book.js');
 
 const router = express.Router();
