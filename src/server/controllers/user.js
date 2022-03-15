@@ -25,7 +25,7 @@ const createUser = async (req, res) => {
 
 		delete createdUser.password;
 
-		const token = createToken({ id: createdUser.id});
+		const token = await createToken({ id: createdUser.id});
 
 
 		res.status(SERVER_SUCCESS.OK.CODE).json({ data: createdUser, token: token});
@@ -82,7 +82,7 @@ const loginUser = async (req, res) => {
 	delete foundUser.password;
 
 
-	const token = createToken({ id: foundUser.id});
+	const token = await createToken({ id: foundUser.id});
     res.status(SERVER_SUCCESS.OK.CODE).json({ data: foundUser, token: token});
 
 };
