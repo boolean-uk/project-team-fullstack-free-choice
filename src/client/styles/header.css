@@ -6,16 +6,19 @@
     display: grid;
     grid-template-columns: 100px auto;
     align-items: center;
-    background-color: #af5c5c;
+    background: rgb(253,42,117);
+    background: linear-gradient(153deg, rgba(253,42,117,1) 0%, rgba(254,66,90,1) 50%, rgba(255,92,58,1) 100%);
     height: 80px;
 }
 
 .header-header {
     margin-left: 50px;
+    color: white;
 }
 
 .link{
     text-decoration: none;
+    color: white;
 }
 
 .links-container {

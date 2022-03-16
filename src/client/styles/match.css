@@ -173,7 +173,7 @@
 }
 
 .recommendation-header .save-btn{
-    background-color: #af5c5c;
+    background-color: #FF5C3A;
     border-radius: 2px;
     width: 4rem;
     padding: 5px;
@@ -181,4 +181,9 @@
     color: #fff;
     text-align: center;
     align-self: flex-end;
+}
+
+.recommendation-img {
+    height: 204px;
+    width: 128px;
 }
