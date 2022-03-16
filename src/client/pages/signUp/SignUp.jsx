@@ -3,14 +3,18 @@ import { useState } from 'react';
 import '../../styles/signUp.css'
 
 import { REGISTER_URL } from '../../config'
-
-const emptyUser = {
-    email: '',
-    username: '',
-    password: ''
-}
+import { useNavigate } from 'react-router';
 
 const SignUp = () => {
+
+    const emptyUser = {
+        email: '',
+        username: '',
+        password: ''
+    }
+
+    const navigate = useNavigate()
+
     const [userDetails, setUserDetails] = useState(emptyUser);
 
     const postRegister = async (url, userDetails) => {
@@ -23,8 +27,8 @@ const SignUp = () => {
             body: JSON.stringify(userDetails)
         })
         const data = await res.json()
-        console.log(data)
         localStorage.setItem('token', data.token);
+        return true
     }
 
     const handleChange = (e) => {
@@ -36,7 +40,10 @@ const SignUp = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        await postRegister(REGISTER_URL, userDetails);
+        const hasLoggedIn = await postRegister(REGISTER_URL, userDetails);
+        if (hasLoggedIn) {
+            navigate('/match');
+        }
     }
 
     return (
