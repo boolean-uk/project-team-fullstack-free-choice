@@ -1,21 +1,74 @@
 import React from 'react';
-//import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { GET_BOOKS_URL } from '../../config';
+import { generateRandomInt } from '../../utils';
 
 import Footer from '../../components/Footer'
 
 import '../../styles/match.css'
 
 const MatchPage = () => {
-    // const [book, setBook] = useState({});
+    const [library, setLibrary] = useState({});
+    const [book, setBook] = useState({});
+    const [displayMatchCard, setDisplayMatchCard] = useState(true);
+    const [recommendations, setRecommendations] = useState([]);
+
+    const pickRandomBook = (library) => {
+        const generatedIndex = generateRandomInt(library.length - 1);
+        
+        return library[generatedIndex];
+    }
+    console.log(library);
+    const pickGroupFromDifferentGroup = (unwantedGroupId) => {
+        let bookToMatch;
+
+        do{
+            bookToMatch = pickRandomBook(library);
+        } while (bookToMatch.groupId === unwantedGroupId);
+
+        return bookToMatch;
+    }
+
+    useEffect(() => {
+        const getLibraryFromDB = async () => {
+            const res = await fetch(GET_BOOKS_URL);
+            const fetchedLibrary = await res.json();
+            
+            setLibrary(fetchedLibrary.data);
+
+            if(fetchedLibrary.data.length && !book.title){
+                const bookToMatch = pickRandomBook(fetchedLibrary.data);
+
+                setBook(bookToMatch);
+            }
+        }
+
+        if(!library.length){
+            getLibraryFromDB();
+        }
+
+    }, [book]);
 
     const handleClick = event => {
-      console.log(event.target.id);
+        if(event.target.id === 'like'){
+            const groupBooks = library.filter(libraryBook => libraryBook.groupId === book.groupId && libraryBook.id !== book.id);
+
+            setRecommendations(groupBooks);
+
+            setDisplayMatchCard(false);
+        }
+
+        if(event.target.id === 'cross'){
+            const bookToMatch = pickGroupFromDifferentGroup(book.groupId);
+
+            setBook(bookToMatch);
+        }
     }  
     
     return(
           <>
-            <div className='match-page'>
-              <div className='match-page-container'>
+            <div className='match-page' style={ {height: displayMatchCard? '90vh' : '0vh'} }>
+              {displayMatchCard && book && <div className='match-page-container'>
                 <button onClick={handleClick} id='cross'>&#10006;</button>
                 <div className="match-card-container">
                   <div className='match-card-wrapper'>
@@ -23,31 +76,43 @@ const MatchPage = () => {
                       <div className='card-image'>
                         <img 
                           className='card-image'
-                          src='https://www.penguin.co.uk/content/dam/prh/books/109/1095734/9780099582595.jpg.transform/PRHDesktopWide_small/image.jpg' 
-                          //expected source: {book.cover}
+                          src={book.cover} 
                           alt='book cover' 
                         />
                       </div>
                       <div className='details'>
-                        <h2 className='title'>{/*Expected: book.title*/}Dracula</h2>
-                        <h4 className='book-description'>{/*Expected: book.description*/}Bram Stokers novel became one of the masterpieces of the horror genre, brilliantly evoking a world of vampires and vampire hunters whilst simultaneously exposing the dark corners of Victorian sexuality and frustrated desire.</h4>
-                        <div className='tags'>{/*Expected: book.tags*/}
-                          {/* {book.tags.map((tag, index) => 
-                              <div className='tag' key={index}>{tag}</div>
+                        <h2 className='title'>{book.title}</h2>
+                        <h4 className='book-description'>{book.description}</h4>
+                        <div className='tags'>
+                          {book.tags && book.tags.map((tag, index) => {
+                              return <div className='tag' key={index}>{tag.name}</div>}
                             )
-                          } */}
-                          <div className='tag'>Fantasy</div>
+                          }
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
                 <button onClick={handleClick} id='like'>&#x2764;</button>
-              </div>
+              </div>}
             </div>
+            {!displayMatchCard && recommendations && recommendations.map((recommendation, index) => {
+                return (<div className='recommendation' key={index}>
+                  <img src={recommendation.cover} alt="book cover" />
+                  <div className="recommendation-header">
+                    <h3>{recommendation.title}</h3>
+                    <p>by {recommendation.authors.map((author, index) => {
+                      return <span key={index}>{author.name}</span>
+                    })}</p>
+                    <p>{recommendation.description.substring(0,220)}</p>
+                    <span className='save-btn'>Save</span>
+                  </div>
+                  
+                </div>)
+            })}
             <Footer />
           </>
-      )
+    )
 }
 
 export default MatchPage;
