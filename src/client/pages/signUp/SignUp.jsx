@@ -3,18 +3,22 @@ import { useState } from 'react';
 import '../../styles/signUp.css'
 
 import { REGISTER_URL } from '../../config'
-
-const emptyUser = {
-    email: '',
-    username: '',
-    password: ''
-}
+import { useNavigate } from 'react-router';
 
 const SignUp = () => {
+
+    const emptyUser = {
+        email: '',
+        username: '',
+        password: ''
+    }
+
+    const navigate = useNavigate()
+
     const [userDetails, setUserDetails] = useState(emptyUser);
+    const [invalid, setInvalid] = useState(false)
 
     const postRegister = async (url, userDetails) => {
-
         const res = await fetch(url, {
             method: 'POST',
             headers: {
@@ -23,8 +27,11 @@ const SignUp = () => {
             body: JSON.stringify(userDetails)
         })
         const data = await res.json()
-        console.log(data)
+        if (data.error) {
+            return false;
+        }
         localStorage.setItem('token', data.token);
+        return true;
     }
 
     const handleChange = (e) => {
@@ -36,7 +43,12 @@ const SignUp = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        await postRegister(REGISTER_URL, userDetails);
+        const hasLoggedIn = await postRegister(REGISTER_URL, userDetails);
+        if (hasLoggedIn) {
+            navigate('/match');
+        } else {
+            setInvalid(true)
+        }
     }
 
     return (
@@ -74,6 +86,11 @@ const SignUp = () => {
                             required
                         />
                         <input type='submit' value='Go!' id='submit' />
+
+                        {invalid &&
+                            <p id='login-fail'>Invalid Credentials</p>
+                        }
+
                     </form>
                 </div>
                 <div className='gap-two'></div>

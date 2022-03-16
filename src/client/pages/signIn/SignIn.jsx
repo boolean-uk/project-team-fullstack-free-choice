@@ -28,7 +28,6 @@ const SignIn = () => {
         if (data.error) {
             return false;
         }
-        console.log(data)
         localStorage.setItem('token', data.token);
         return true;
     }
