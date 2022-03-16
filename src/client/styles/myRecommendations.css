@@ -28,13 +28,15 @@
 .top-tag button,
 .author button {
     height: 20px;
-    background-color: #d8b3b3;
+    background-color: #FD2A75;
+    color: white;
+    border-radius: 3px;
     border: none;
-    border-radius: 10px;
 }
 
 .book button {
-    background-color: #b88b8b;
+    background-color: #FD2A75;
+    color: white;
     border: none;
     margin-left: auto;
     padding: 0px 50px 0px 50px;
@@ -61,7 +63,8 @@
 
 .book-genre,
 .book-tag {
-    background-color: #d8b3b3;
+    background-color: #FF5C3A;
+    color: white;
     text-align: center;
     border-radius: 30px;
 }
@@ -104,4 +107,9 @@ img {
     width: 250px;
     height: 100px;
     font-size: x-large;
+}
+
+.b-genre,
+.b-tag {
+    color: white;
 }
