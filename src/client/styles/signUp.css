@@ -1,4 +1,4 @@
-* {
+.signup-page {
     color: #6A5441;
 }
 
@@ -27,22 +27,15 @@ label {
 }
 
 .signup-container {
-    box-shadow: 0px 0px 10px #A29385;
+    box-shadow: 0px 0px 10px #d8b3b3;
     display: grid;
     align-items: center;
-}
-
-.gap-one,
-.gap-two {
-    background-color: #A29385;
-    box-shadow: 0px 0px 10px #A29385;
 }
 
 input {
     height: 40px;
     margin-bottom: 10px;
     border-style: solid;
-    border-color: #6A5441;
     border-width: 1px;
     font-size: x-large;
 }
