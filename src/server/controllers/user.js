@@ -81,8 +81,24 @@ const loginUser = async (req, res) => {
     res.status(SERVER_SUCCESS.OK.CODE).json({ data: foundUser, token: token});
 };
 
+// const addBookToUser = async(req, res) => {
+// 	const id = Number(req.params.id);
+// 	const {bookId} = req.body;
+
+// 	const userBook = await prisma.book.create({
+// 		data: {
+// 			book: {
+// 				connectOrCreate: {
+					
+// 				}
+// 			}
+// 		}
+// 	})
+// }
+
 module.exports = {
 	createUser,
 	getUserById,
 	loginUser,
+	// addBookToUser
 };

@@ -19,6 +19,7 @@ model User {
   tags      Tag[]
   recommendations Recommendation[]
   authors   Author[]
+  books     Book[]
 }
 
 model Genre {
@@ -51,6 +52,7 @@ model Book {
   genres          Genre[]
   recommendations Recommendation[]
   tags            Tag[]
+  users           User[]
   group           Group             @relation(fields: [groupId], references: [id])
   groupId         Int
 }

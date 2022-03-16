@@ -5,7 +5,9 @@ import '../../styles/signIn.css'
 import { LOGIN_URL } from '../../config'
 import { useNavigate } from 'react-router';
 
-const SignIn = () => {
+const SignIn = (props) => {
+    const { setUser } = props;
+
     const emptyUser = {
         username: '',
         password: ''
@@ -23,12 +25,18 @@ const SignIn = () => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(loginDetails)
-        })
-        const data = await res.json();
-        if (data.error) {
+        });
+        const foundUser = await res.json();
+
+        if (foundUser.error) {
             return false;
         }
-        localStorage.setItem('token', data.token);
+
+        localStorage.setItem('token', foundUser.token);
+        localStorage.setItem('user', foundUser.data);
+
+        setUser(localStorage.getItem('user'));
+
         return true;
     }
 

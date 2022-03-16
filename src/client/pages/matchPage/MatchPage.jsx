@@ -7,7 +7,9 @@ import Footer from '../../components/Footer'
 
 import '../../styles/match.css'
 
-const MatchPage = () => {
+const MatchPage = (props) => {
+    const { user } = props;
+
     const [library, setLibrary] = useState({});
     const [book, setBook] = useState({});
     const [displayMatchCard, setDisplayMatchCard] = useState(true);
@@ -64,6 +66,17 @@ const MatchPage = () => {
             setBook(bookToMatch);
         }
     }  
+
+    const addSavedBookToUser = async () => {
+      //save to user
+      //get user id from user.id (state) to send in the url
+    }
+
+    const handleSaveClick = async (event) => {
+      const recommendedBook = library.filter(libraryBook => libraryBook.id === Number(event.target.id))[0];
+
+      await addSavedBookToUser(recommendedBook);
+    }
     
     return(
           <>
@@ -98,14 +111,14 @@ const MatchPage = () => {
             </div>
             {!displayMatchCard && recommendations && recommendations.map((recommendation, index) => {
                 return (<div className='recommendation' key={index}>
-                  <img src={recommendation.cover} alt="book cover" />
+                  <img className='recommendation-img' src={recommendation.cover} alt="book cover" />
                   <div className="recommendation-header">
                     <h3>{recommendation.title}</h3>
                     <p>by {recommendation.authors.map((author, index) => {
                       return <span key={index}>{author.name}</span>
                     })}</p>
                     <p>{recommendation.description.substring(0,220)}</p>
-                    <span className='save-btn'>Save</span>
+                    <button className='save-btn' onClick={handleSaveClick} id={recommendation.id}>Save</button>
                   </div>
                   
                 </div>)

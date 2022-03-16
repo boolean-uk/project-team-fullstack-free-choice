@@ -5,7 +5,8 @@ import '../../styles/signUp.css'
 import { REGISTER_URL } from '../../config'
 import { useNavigate } from 'react-router';
 
-const SignUp = () => {
+const SignUp = (props) => {
+    const { setUser } = props;
 
     const emptyUser = {
         email: '',
@@ -25,12 +26,18 @@ const SignUp = () => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(userDetails)
-        })
-        const data = await res.json()
-        if (data.error) {
+        });
+        const registeredUser = await res.json();
+
+        if (registeredUser.error) {
             return false;
         }
-        localStorage.setItem('token', data.token);
+
+        localStorage.setItem('token', registeredUser.token);
+        localStorage.setItem('user', registeredUser.data);
+
+        setUser(localStorage.getItem('user'));
+
         return true;
     }
 
