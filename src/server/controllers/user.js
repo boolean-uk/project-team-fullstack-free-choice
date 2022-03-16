@@ -1,4 +1,5 @@
 const { prisma } = require('../utils/prisma');
+const { Prisma } = require('@prisma/client');
 const { SERVER_ERROR, SERVER_SUCCESS, PRISMA_ERROR } = require('../config.js');
 
 const { hashedPassword, checkPassword, createToken } = require('../utils/auth.js');
@@ -28,13 +29,12 @@ const createUser = async (req, res) => {
 		res.status(SERVER_SUCCESS.OK.CODE).json({ data: createdUser, token: token});
 	} 
 	catch (error) {
-
-		if (error.code === PRISMA_ERROR.UNIQUE_CONSTRAINT_VIOLATION.CODE) {
-			return res.status(SERVER_ERROR.INTERNAL.CODE).json({
-				error: PRISMA_ERROR.UNIQUE_CONSTRAINT_VIOLATION.CLIENT_MESSAGE_REGISTER,
-			});
-		}
-	}
+        if (error instanceof Prisma.PrismaClientKnownRequestError) {
+            if (error.code === PRISMA_ERROR.UNIQUE_CONSTRAINT_VIOLATION.CODE) {
+                res.status(SERVER_ERROR.INTERNAL.CODE).json({ error: PRISMA_ERROR.UNIQUE_CONSTRAINT_VIOLATION.CLIENT_MESSAGE_REGISTER });
+            }
+        }
+    }
 };
 
 const getUserById = async (req, res) => {

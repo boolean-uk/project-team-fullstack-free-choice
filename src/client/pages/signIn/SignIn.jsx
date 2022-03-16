@@ -17,6 +17,7 @@ const SignIn = () => {
     const [invalid, setInvalid] = useState(false)
 
     const postLogin = async (url, loginDetails) => {
+        console.log('here', url, loginDetails)
         const res = await fetch(url, {
             method: 'POST',
             headers: {
@@ -24,11 +25,12 @@ const SignIn = () => {
             },
             body: JSON.stringify(loginDetails)
         })
+        console.log('before const')
         const data = await res.json();
+        console.log('mydata', data)
         if (data.error) {
             return false;
         }
-        console.log(data)
         localStorage.setItem('token', data.token);
         return true;
     }
