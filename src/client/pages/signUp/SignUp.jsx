@@ -19,7 +19,6 @@ const SignUp = () => {
     const [invalid, setInvalid] = useState(false)
 
     const postRegister = async (url, userDetails) => {
-        console.log('here', url, userDetails)
         const res = await fetch(url, {
             method: 'POST',
             headers: {
@@ -27,9 +26,7 @@ const SignUp = () => {
             },
             body: JSON.stringify(userDetails)
         })
-        console.log('before const')
         const data = await res.json()
-        console.log('mydata', data)
         if (data.error) {
             return false;
         }
