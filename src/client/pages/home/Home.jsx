@@ -10,13 +10,13 @@ const Home = () => {
                 <div className='content'>
                     <h1>Want to find your next <span>Book.</span> to read?</h1>
                     <div className='buttons'>
-                        <div className='loginContainer'>
+                        <div className='login-container'>
                             <h4>Already have an account?</h4>
                             <Link to='/signin'>
                                 <h3 className='sign-link'>Login</h3>
                             </Link>
                         </div>
-                        <div className='registerContainer'>
+                        <div className='register-container'>
                             <h4>Want to create a new account?</h4> 
                             <Link to='/signup'>
                                 <h3 className='sign-link'>Sign Up</h3>
