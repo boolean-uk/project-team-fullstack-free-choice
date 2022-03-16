@@ -5,6 +5,7 @@ const getAllBooks = async (req, res) => {
 	const books = await prisma.book.findMany({
 		include: {
 			tags: true,
+			authors: true
 		}
 	});
 
