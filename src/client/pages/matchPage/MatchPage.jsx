@@ -18,7 +18,7 @@ const MatchPage = () => {
         
         return library[generatedIndex];
     }
-    console.log(library);
+
     const pickGroupFromDifferentGroup = (unwantedGroupId) => {
         let bookToMatch;
 
