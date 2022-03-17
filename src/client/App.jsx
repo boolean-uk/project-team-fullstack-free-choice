@@ -11,21 +11,23 @@ import MyRecommendations from './pages/myRecommendations/MyRecommendations';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
+  const [userId, setUserId] = useState('');
 
  /* dont think we need this useEffect line. can check in signIn and signUp if token is created then set loggedIn */
   // useEffect(() => {
   //   localStorage.getItem('token') ? setLoggedIn(true) : setLoggedIn(false)
   // }, [])
  
+
   return (
       <div className="App">
         <Header loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>
         <Routes>
           <Route path='/' element={<Home />}/>
-          <Route path='/signup' element={<SignUp setLoggedIn={setLoggedIn}/>}/>
-          <Route path='/signin' element={<SignIn setLoggedIn={setLoggedIn}/>}/>
-          <Route path='/match' element={<MatchPage />}/>
-          <Route path='/recommendation' element={<MyRecommendations />}/>
+          <Route path='/signup' element={<SignUp setUserId={setUserId} setLoggedIn={setLoggedIn}/>}/>
+          <Route path='/signin' element={<SignIn setUserId={setUserId} setLoggedIn={setLoggedIn}/>}/>
+          <Route path='/match' element={<MatchPage userId={userId} />}/>
+          <Route path='/recommendation' element={<MyRecommendations userId={userId} />}/>
         </Routes>
         <Footer/>
       </div>

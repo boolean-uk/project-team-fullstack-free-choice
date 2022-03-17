@@ -1,14 +1,13 @@
 import React from 'react';
 import { useState } from 'react';
-import '../../styles/signUp.css';
-
-import { REGISTER_URL } from '../../config';
+import { REGISTER_URL } from '../../config'
 import { useNavigate } from 'react-router';
+import PropTypes from 'prop-types'
 
-import PropTypes from 'prop-types';
+import '../../styles/signUp.css'
 
 const SignUp = (props) => {
-    const { setLoggedIn } = props;
+    const { setUserId, setLoggedIn } = props;
 
     const emptyUser = {
         email: '',
@@ -28,13 +27,20 @@ const SignUp = (props) => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(userDetails)
-        })
-        const data = await res.json()
-        if (data.error) {
+        });
+        const registeredUser = await res.json();
+
+        if (registeredUser.error) {
             return false;
         }
-        localStorage.setItem('token', data.token);
+
+        localStorage.setItem('token', registeredUser.token);
+        localStorage.setItem('userId', registeredUser.data.id);
+
+        setUserId(localStorage.getItem('userId'));
+
         setLoggedIn(true);
+
         return true;
     }
 
@@ -105,6 +111,7 @@ const SignUp = (props) => {
 }
 
 SignUp.propTypes = {
+    setUserId: PropTypes.string.isRequired,
     setLoggedIn: PropTypes.func.isRequired
 }
 

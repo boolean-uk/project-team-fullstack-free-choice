@@ -1,13 +1,16 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { GET_BOOKS_URL } from '../../config';
+import { GET_BOOKS_URL, POST_RECOMMENDATION } from '../../config';
 import { generateRandomInt } from '../../utils';
+import PropTypes from 'prop-types'
 
 import Footer from '../../components/Footer'
 
 import '../../styles/match.css'
 
-const MatchPage = () => {
+const MatchPage = (props) => {
+    const { userId } = props;
+
     const [library, setLibrary] = useState({});
     const [book, setBook] = useState({});
     const [displayMatchCard, setDisplayMatchCard] = useState(true);
@@ -64,6 +67,29 @@ const MatchPage = () => {
             setBook(bookToMatch);
         }
     }  
+
+    const addSavedBookToUser = async (recommendedBook) => {
+      const res = await fetch(POST_RECOMMENDATION + userId, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          bookId: recommendedBook.id,
+          userId: userId,
+          isStored: true
+        })
+      });
+      const storedRecommendation = await res.json();
+      console.log('Stored book:', storedRecommendation.data);
+    }
+
+    const handleSaveClick = async (event) => {
+      const bookId = Number(event.target.id);
+      const recommendedBook = library.filter(libraryBook => libraryBook.id === bookId)[0];
+
+      await addSavedBookToUser(recommendedBook);
+    }
     
     return(
           <>
@@ -98,14 +124,14 @@ const MatchPage = () => {
             </div>
             {!displayMatchCard && recommendations && recommendations.map((recommendation, index) => {
                 return (<div className='recommendation' key={index}>
-                  <img src={recommendation.cover} alt="book cover" />
+                  <img className='recommendation-img' src={recommendation.cover} alt="book cover" />
                   <div className="recommendation-header">
                     <h3>{recommendation.title}</h3>
                     <p>by {recommendation.authors.map((author, index) => {
                       return <span key={index}>{author.name}</span>
                     })}</p>
                     <p>{recommendation.description.substring(0,220)}</p>
-                    <span className='save-btn'>Save</span>
+                    <button className='save-btn' onClick={handleSaveClick} id={recommendation.id}>Save</button>
                   </div>
                   
                 </div>)
@@ -113,6 +139,10 @@ const MatchPage = () => {
             <Footer />
           </>
     )
+}
+
+MatchPage.propTypes = {
+  userId: PropTypes.string.isRequired
 }
 
 export default MatchPage;
