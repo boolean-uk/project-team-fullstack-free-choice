@@ -10,7 +10,7 @@ import MatchPage from './pages/matchPage/MatchPage';
 import MyRecommendations from './pages/myRecommendations/MyRecommendations';
 
 function App() {
-  const [userId, setUserId] = useState({});
+  const [userId, setUserId] = useState('');
 
   return (
       <div className="App">
