@@ -102,7 +102,7 @@ const SignIn = (props) => {
 }
 
 SignIn.propTypes = {
-    setUserId: PropTypes.string.isRequired,
+    setUserId: PropTypes.func.isRequired,
     setLoggedIn: PropTypes.func.isRequired
 }
 
