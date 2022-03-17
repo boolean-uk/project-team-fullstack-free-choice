@@ -1,5 +1,5 @@
 const { prisma } = require('../utils/prisma');
-import { SERVER_SUCCESS, SERVER_ERROR } from '../config';
+const { SERVER_SUCCESS, SERVER_ERROR } = require('../config.js');
 
 const createRecommendation = async(req, res) => {
     const { bookId, userId, isStored} = req.body;
@@ -17,10 +17,10 @@ const createRecommendation = async(req, res) => {
             }
         });
 
-        res.status(SERVER_SUCCESS.OK.CODE).json({data: savedBooks})
+        res.status(SERVER_SUCCESS.POST_OK.CODE).json({ data: savedBooks });
     }
     catch(error){
-        res.status(SERVER_ERROR.INTERNAL.CODE).json(SERVER_ERROR.INTERNAL.MESSAGE);
+        res.status(SERVER_SUCCESS.INTERNAL.CODE).json(SERVER_SUCCESS.INTERNAL.MESSAGE);
     }
 }
 
