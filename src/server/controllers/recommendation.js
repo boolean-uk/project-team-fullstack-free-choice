@@ -1,7 +1,7 @@
 const { prisma } = require('../utils/prisma');
-const { SERVER_ERROR, SERVER_SUCCESS } = require('../config');
+import { SERVER_SUCCESS, SERVER_ERROR } from '../config';
 
-const createRecommendation = async (req, res) => {
+const createRecommendation = async(req, res) => {
     const { bookId, userId, isStored} = req.body;
 
     const recommendation = {
@@ -22,7 +22,6 @@ const createRecommendation = async (req, res) => {
     catch(error){
         res.status(SERVER_ERROR.INTERNAL.CODE).json(SERVER_ERROR.INTERNAL.MESSAGE);
     }
-    
 }
 
 const getRecommendations = async (req, res) => {
