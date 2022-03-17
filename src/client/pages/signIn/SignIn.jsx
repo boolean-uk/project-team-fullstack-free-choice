@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { LOGIN_URL } from '../../config'
 import { useNavigate } from 'react-router';
 import PropTypes from 'prop-types'
+import { Link } from "react-router-dom";
 
 import '../../styles/signIn.css'
 
@@ -87,7 +88,7 @@ const SignIn = (props) => {
                             required
                         />
                         <input type='submit' value='Go!' id='submit' />
-                        <p className='new-account'>New to Bookr? Sign up here!</p>
+                        <p className='new-account'><Link to='/signup'>New to Bookr? Sign up here!</Link></p>
 
                         {invalid &&
                             <p id='login-fail'>Invalid Credentials</p>

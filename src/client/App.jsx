@@ -12,19 +12,21 @@ import MyRecommendations from './pages/myRecommendations/MyRecommendations';
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [userId, setUserId] = useState('');
- 
+
   return (
-      <div className="App">
-        <Header loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>
-        <Routes>
-          <Route path='/' element={<Home />}/>
-          <Route path='/signup' element={<SignUp setUserId={setUserId} setLoggedIn={setLoggedIn}/>}/>
-          <Route path='/signin' element={<SignIn setUserId={setUserId} setLoggedIn={setLoggedIn}/>}/>
-          <Route path='/match' element={<MatchPage userId={userId} />}/>
-          <Route path='/recommendation' element={<MyRecommendations userId={userId} />}/>
-        </Routes>
-        <Footer/>
-      </div>
+    <div className="App">
+      {loggedIn &&
+        <Header loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
+      }
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/signup' element={<SignUp setUserId={setUserId} setLoggedIn={setLoggedIn} />} />
+        <Route path='/signin' element={<SignIn setUserId={setUserId} setLoggedIn={setLoggedIn} />} />
+        <Route path='/match' element={<MatchPage userId={userId} />} />
+        <Route path='/recommendation' element={<MyRecommendations userId={userId} />} />
+      </Routes>
+      <Footer />
+    </div>
   );
 }
 

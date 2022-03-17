@@ -113,3 +113,11 @@ img {
 .b-tag {
     color: white;
 }
+
+.top-container {
+    margin-left: 20px;
+}
+
+.top-container h2 {
+    text-align: center;
+}
