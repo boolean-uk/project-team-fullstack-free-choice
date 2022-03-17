@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from 'react';
+import { React, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 import Home from './pages/home/Home';
@@ -13,9 +13,9 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
 
  /* dont think we need this useEffect line. can check in signIn and signUp if token is created then set loggedIn */
-  useEffect(() => {
-    localStorage.getItem('token') ? setLoggedIn(true) : setLoggedIn(false)
-  }, [])
+  // useEffect(() => {
+  //   localStorage.getItem('token') ? setLoggedIn(true) : setLoggedIn(false)
+  // }, [])
  
   return (
       <div className="App">
