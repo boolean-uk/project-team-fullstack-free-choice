@@ -9,25 +9,56 @@ const MyRecommendations = (props) => {
     const sliceStart = 0;
     const sliceEnd = 5;
 
-    const [books, setBooks] = useState([]);
+    const [savedBooks, setSavedBooks] = useState([]);
     const [authors, setAuthors] = useState([]);
     const [tags, setTags] = useState([]);
     const [displayConfirm, setDisplayConfirm] = useState(false);
     const [selectedBook, setSelectedBook] = useState(null);
 
     useEffect(() => {
-        fetchRecommendedBooks();
+        getSavedBooks();
     }, []);
+
+    const getAuthors = (books) => {
+        const foundAuthors = [];
+        books.map(saved => {
+            saved.book.authors.map(author => {
+                if(!foundAuthors.includes(author.name)){
+                    foundAuthors.push(author.name);
+                }
+            })
+        });
+
+        setAuthors(foundAuthors);
+    }
+
+    const getTags = (books) => {
+        const foundTags = [];
+        books.map(saved => {
+            saved.book.tags.map(tag => {
+                if(!foundTags.includes(tag.name)){
+                    foundTags.push(tag.name);
+                }
+            })
+        });
+
+        setTags(foundTags);
+    }
     
-    const fetchRecommendedBooks = async() =>{
+    const getSavedBooks = async() =>{
         const res = await fetch(GET_RECOMMENDATION + userId);
 
-        const recommendedData =  await res.json();
+        const savedBooks =  await res.json();
 
-        console.log('recommendedData', recommendedData.data);
+        console.log('recommendedData', savedBooks.data);
 
-        setBooks(recommendedData.data);
+        getAuthors(savedBooks.data);
+        getTags(savedBooks.data);
+
+        setSavedBooks(savedBooks.data);
     }
+
+
 
     const remove = (item, list) => {
         const removeIndex = list.indexOf(item);
@@ -54,7 +85,7 @@ const MyRecommendations = (props) => {
     const confirmRemoveBook = (e) => {
         e.preventDefault();
         const selectedTitle = e.target.className;
-        const selectedBookIndex = books.findIndex(x => x.title === selectedTitle);
+        const selectedBookIndex = savedBooks.findIndex(x => x.title === selectedTitle);
         setSelectedBook(selectedBookIndex);
         setDisplayConfirm(true);
     }
@@ -65,10 +96,10 @@ const MyRecommendations = (props) => {
     }
 
     const removeBook = () => {
-        const newBooks = [...books];
+        const newBooks = [...savedBooks];
         const deleteCount = 1;
         newBooks.splice(selectedBook, deleteCount);
-        setBooks(newBooks);
+        setSavedBooks(newBooks);
         setDisplayConfirm(false);
     }
 
@@ -106,44 +137,35 @@ const MyRecommendations = (props) => {
                 </div>
                 <div className='books-container'>
                     <h2>Your Saved Books</h2>
-                    {books &&
-                        books.map((book, index) => {
+                    {savedBooks &&
+                        savedBooks.map((saved, index) => {
                             return (
                                 <div className='book' key={index}>
                                     <div className='main-book-area'>
-                                        <img src={book.cover} alt="Cover" />
+                                        <img src={saved.book.cover} alt="Cover" />
                                         <div className='book-info'>
-                                            <p>{book.title}</p>
-                                            <p>{book.description}</p>
+                                            <p>{saved.book.title}</p>
+                                            <p>{saved.book.description}</p>
                                             <p>By:</p>
-                                            {book.authors &&
-                                                book.authors.map((author, index) => {
+                                            {saved.book.authors &&
+                                                saved.book.authors.map((author, index) => {
                                                     return (
-                                                        <p key={index}>{author}</p>
+                                                        <p key={index}>{author.name}</p>
                                                     )
                                                 })}
                                         </div>
                                     </div>
                                     <div className='book-tags'>
-                                        {book.genres &&
-                                            book.genres.map((genre, index) => {
-                                                return (
-                                                <div key={index} className='book-genre'>
-                                                    <p className='b-genre'>{genre}</p>
-                                                </div>
-                                                )
-                                            })
-                                        }
-                                        {book.tags &&
-                                            book.tags.map((tag, index) => {
+                                        {saved.book.tags &&
+                                            saved.book.tags.map((tag, index) => {
                                                 return (
                                                 <div key={index} className='book-tag'>
-                                                    <p className='b-tag'>{tag}</p>
+                                                    <p className='b-tag'>{tag.name}</p>
                                                 </div>
                                                 )
                                             })
                                         }
-                                        <button className={book.title} onClick={e => confirmRemoveBook(e)}>Remove</button>
+                                        <button className={saved.title} onClick={e => confirmRemoveBook(e)}>Remove</button>
                                     </div>
                                 </div>
                             )

@@ -66,7 +66,8 @@ const getRecommendations = async (req, res) => {
         include: {
             book: {
                 include: {
-                    authors: true
+                    authors: true,
+                    tags: true
                 }
             }
         }
