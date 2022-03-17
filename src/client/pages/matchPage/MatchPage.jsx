@@ -68,6 +68,9 @@ const MatchPage = (props) => {
         }
     }  
 
+    console.log('typeof:', typeof userId);
+    console.log(userId);
+
     const addSavedBookToUser = async (recommendedBook) => {
       const res = await fetch(POST_RECOMMENDATION + userId, {
         method: 'POST',
