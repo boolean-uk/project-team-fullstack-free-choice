@@ -1,6 +1,6 @@
-import { React, useState } from 'react';
+import { React, useState, useEffect } from 'react';
 import PropTypes from 'prop-types'
-
+import { GET_RECOMMENDATION } from '../../config';
 import '../../styles/myRecommendations.css';
 
 const MyRecommendations = (props) => {
@@ -15,8 +15,19 @@ const MyRecommendations = (props) => {
     const [displayConfirm, setDisplayConfirm] = useState(false);
     const [selectedBook, setSelectedBook] = useState(null);
 
-    //to get the saved books get user id from user.id (state)
-    //fetch the books that belong to that user
+    useEffect(() => {
+        fetchRecommendedBooks();
+    }, []);
+    
+    const fetchRecommendedBooks = async() =>{
+        const res = await fetch(GET_RECOMMENDATION);
+
+        const recommendedData =  await res.json();
+
+        console.log('recommendedData', recommendedData.data);
+
+        setBooks(recommendedData.data);
+    }
 
     const remove = (item, list) => {
         const removeIndex = list.indexOf(item);
