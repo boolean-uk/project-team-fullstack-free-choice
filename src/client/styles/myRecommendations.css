@@ -43,6 +43,11 @@
     border-radius: 30px;
 }
 
+.book-tags button {
+    width: 200px; 
+    height: 55px
+}
+
 .books-container {
     margin-left: 75px;
     text-align: start;
@@ -56,7 +61,7 @@
 
 .book-tags {
     display: grid;
-    grid-template-columns: repeat(auto-fit, 125px);
+    grid-template-columns: repeat(auto-fit, 200px);
     gap: 5px;
     margin-top: 10px;
 }
