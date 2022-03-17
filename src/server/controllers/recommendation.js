@@ -54,7 +54,7 @@ const createRecommendation = async(req, res) => {
 }
 
 const getRecommendations = async (req, res) => {
-    const userId = Number(req.body.userId);
+    const userId = Number(req.params.userId);
 
     const foundRecommendations = await prisma.recommendation.findMany({
         where: {
@@ -62,6 +62,13 @@ const getRecommendations = async (req, res) => {
                 { userId: userId },
                 { isStored: true }
             ]
+        },
+        include: {
+            book: {
+                include: {
+                    authors: true
+                }
+            }
         }
     });
     console.log('User\'s recommendations', foundRecommendations);

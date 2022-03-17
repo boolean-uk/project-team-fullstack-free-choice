@@ -18,7 +18,7 @@ const getBookById = async (req, res) => {
 	const foundBook = await prisma.book.findUnique({
 		where: {
 			id
-		},
+		}
 	});
 
 	if (!foundBook) {
