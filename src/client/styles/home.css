@@ -29,7 +29,7 @@ html, body {
 
 .content span {
     font-size: 6.5rem;
-    color: #af5c5c;
+    color: #FE425A;
     transition: 0.3s;
     position: relative;
 }
@@ -54,7 +54,7 @@ html, body {
 
 .sign-link {
     font-size: 2rem;
-    color: #af5c5c;
+    color: #FE425A;
     font-weight: bold;
     text-decoration: none;
     width: fit-content;
