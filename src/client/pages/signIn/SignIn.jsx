@@ -5,7 +5,11 @@ import '../../styles/signIn.css'
 import { LOGIN_URL } from '../../config'
 import { useNavigate } from 'react-router';
 
-const SignIn = () => {
+import PropTypes from 'prop-types';
+
+const SignIn = (props) => {
+    const { setLoggedIn } = props;
+
     const emptyUser = {
         username: '',
         password: ''
@@ -29,6 +33,7 @@ const SignIn = () => {
             return false;
         }
         localStorage.setItem('token', data.token);
+        setLoggedIn(true);
         return true;
     }
 
@@ -88,6 +93,10 @@ const SignIn = () => {
         </>
 
     )
+}
+
+SignIn.propTypes = {
+    setLoggedIn: PropTypes.func.isRequired
 }
 
 export default SignIn

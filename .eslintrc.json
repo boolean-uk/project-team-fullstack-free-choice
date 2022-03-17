@@ -22,7 +22,8 @@
     "rules": {
       "no-magic-numbers": 1,
       "camelcase": [1, { "properties": "always" }],
-      "eqeqeq": 1
+      "eqeqeq": 1,
+      "react/prop-types": 0
     },
     "overrides": [
       {

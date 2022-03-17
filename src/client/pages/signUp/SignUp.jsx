@@ -1,11 +1,14 @@
 import React from 'react';
 import { useState } from 'react';
-import '../../styles/signUp.css'
+import '../../styles/signUp.css';
 
-import { REGISTER_URL } from '../../config'
+import { REGISTER_URL } from '../../config';
 import { useNavigate } from 'react-router';
 
-const SignUp = () => {
+import PropTypes from 'prop-types';
+
+const SignUp = (props) => {
+    const { setLoggedIn } = props;
 
     const emptyUser = {
         email: '',
@@ -31,6 +34,7 @@ const SignUp = () => {
             return false;
         }
         localStorage.setItem('token', data.token);
+        setLoggedIn(true);
         return true;
     }
 
@@ -98,6 +102,10 @@ const SignUp = () => {
         </>
 
     )
+}
+
+SignUp.propTypes = {
+    setLoggedIn: PropTypes.func.isRequired
 }
 
 export default SignUp
