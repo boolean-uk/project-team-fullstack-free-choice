@@ -16,10 +16,9 @@ function Header(props)  {
         <div className='header-container'>
             <h1 className='header-header'>Bookr</h1>
             <div className='links-container'>
-                <p><Link to='/' className='link'>Home</Link></p>
                 <p><Link to='/recommendation' className='link'>Recommended</Link></p>
                 <p><Link to='/match' className='link'>Match</Link></p>
-                {loggedIn && <p><Link to='/signin' className='link' onClick={() => removeToken()}>Logout</Link></p>}
+                {loggedIn && <p><Link to='/' className='link' onClick={() => removeToken()}>Logout</Link></p>}
             </div>
         </div>
     )
