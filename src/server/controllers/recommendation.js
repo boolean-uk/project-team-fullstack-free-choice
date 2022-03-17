@@ -12,19 +12,43 @@ const createRecommendation = async(req, res) => {
         isMatch: false
     }
 
+    const existingRecommendation = await prisma.recommendation.findFirst({
+        where: {
+            AND: [
+                { userId: userId },
+                { bookId: bookId }
+            ]
+        }
+    });
+
     try{
-        const createdRecommendation = await prisma.recommendation.create({
-            data: {
-                ...recommendation
-            }
-        });
+        if(!existingRecommendation){
+            const createdRecommendation = await prisma.recommendation.create({
+                data: {
+                    ...recommendation
+                }
+            });
+    
+            console.log('created rec', createdRecommendation);
+    
+            return res.status(SERVER_SUCCESS.POST_OK.CODE).json({ data: createdRecommendation });
+        }
 
-        console.log('created rec', createdRecommendation);
+        if(!existingRecommendation.isStored){
+            const updatedRecommendation = await prisma.recommendation.update({
+                data: {
+                    isStored: true
+                }
+            });
 
-        res.status(SERVER_SUCCESS.POST_OK.CODE).json({ data: createdRecommendation });
+            console.log('updated rec', updatedRecommendation);
+
+            res.status(SERVER_SUCCESS.POST_OK.CODE).json({ data: updatedRecommendation });
+        }
+
+        res.status(SERVER_SUCCESS.OK.CODE).json({ data: existingRecommendation });
     }
     catch(error){
-        console.log(error);
         res.status(SERVER_ERROR.INTERNAL.CODE).json(SERVER_ERROR.INTERNAL.MESSAGE);
     }
 }
