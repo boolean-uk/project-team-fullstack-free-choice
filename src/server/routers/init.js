@@ -9,6 +9,6 @@ const router = express.Router();
 
 router.post('/', seedBookDatabase);
 
-router.post('/initUser', seedUsers);
+router.post('/user', seedUsers);
 
 module.exports = router;

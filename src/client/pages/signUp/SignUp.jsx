@@ -1,9 +1,10 @@
 import React from 'react';
 import { useState } from 'react';
-import '../../styles/signUp.css'
-
 import { REGISTER_URL } from '../../config'
 import { useNavigate } from 'react-router';
+import PropTypes from 'prop-types'
+
+import '../../styles/signUp.css'
 
 const SignUp = (props) => {
     const { setUser } = props;
@@ -105,6 +106,10 @@ const SignUp = (props) => {
         </>
 
     )
+}
+
+SignUp.propTypes = {
+    setUser: PropTypes.string.isRequired
 }
 
 export default SignUp

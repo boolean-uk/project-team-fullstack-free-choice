@@ -5,9 +5,12 @@ const REGISTER_URL = URL + 'user/register'
 
 const GET_BOOKS_URL = URL + 'book/';
 
+const POST_RECOMMENDATION = URL + 'recommendation/';
+
 module.exports = {
     URL,
     LOGIN_URL,
     REGISTER_URL,
-    GET_BOOKS_URL
+    GET_BOOKS_URL,
+    POST_RECOMMENDATION
 }

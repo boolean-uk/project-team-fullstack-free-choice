@@ -4,7 +4,7 @@ const {
     createUser,
     getUserById,
     loginUser,
-    // addBookToUser
+    addBookToUser
 } = require('../controllers/user.js');
 
 const router = express.Router();
@@ -15,6 +15,6 @@ router.get('/:id', getUserById);
 
 router.post('/login', loginUser); 
 
-// router.post('/:id/book', addBookToUser);
+router.post('/:id/book', addBookToUser);
 
 module.exports = router;

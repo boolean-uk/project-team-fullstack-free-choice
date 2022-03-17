@@ -1,7 +1,8 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { GET_BOOKS_URL } from '../../config';
+import { GET_BOOKS_URL, POST_RECOMMENDATION } from '../../config';
 import { generateRandomInt } from '../../utils';
+import PropTypes from 'prop-types'
 
 import Footer from '../../components/Footer'
 
@@ -67,9 +68,20 @@ const MatchPage = (props) => {
         }
     }  
 
-    const addSavedBookToUser = async () => {
-      //save to user
-      //get user id from user.id (state) to send in the url
+    const addSavedBookToUser = async (recommendedBook) => {
+      const res = await fetch(POST_RECOMMENDATION + user.id, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          bookId: recommendedBook.id,
+          userId: user.id,
+          isStored: true
+        })
+      });
+      const storedRecommendation = res.json();
+      console.log('Stored book:', storedRecommendation.data);
     }
 
     const handleSaveClick = async (event) => {
@@ -95,7 +107,7 @@ const MatchPage = (props) => {
                       </div>
                       <div className='details'>
                         <h2 className='title'>{book.title}</h2>
-                        <h4 className='book-description'>{book.description}</h4>
+                        <h4 className='book-description'>{book.description.substring(0, 220)}</h4>
                         <div className='tags'>
                           {book.tags && book.tags.map((tag, index) => {
                               return <div className='tag' key={index}>{tag.name}</div>}
@@ -126,6 +138,10 @@ const MatchPage = (props) => {
             <Footer />
           </>
     )
+}
+
+MatchPage.propTypes = {
+  user: PropTypes.string.isRequired
 }
 
 export default MatchPage;

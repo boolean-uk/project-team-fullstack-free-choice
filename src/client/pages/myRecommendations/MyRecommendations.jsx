@@ -1,4 +1,6 @@
 import { React, useState } from 'react';
+import PropTypes from 'prop-types'
+
 import '../../styles/myRecommendations.css';
 
 const MyRecommendations = (props) => {
@@ -147,6 +149,10 @@ const MyRecommendations = (props) => {
             }
         </>
     )
+}
+
+MyRecommendations.propTypes = {
+    user: PropTypes.string.isRequired
 }
 
 export default MyRecommendations;

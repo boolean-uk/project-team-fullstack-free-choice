@@ -1,9 +1,10 @@
 import React from 'react';
 import { useState } from 'react';
-import '../../styles/signIn.css'
-
 import { LOGIN_URL } from '../../config'
 import { useNavigate } from 'react-router';
+import PropTypes from 'prop-types'
+
+import '../../styles/signIn.css'
 
 const SignIn = (props) => {
     const { setUser } = props;
@@ -96,6 +97,10 @@ const SignIn = (props) => {
         </>
 
     )
+}
+
+SignIn.propTypes = {
+    setUser: PropTypes.string.isRequired
 }
 
 export default SignIn

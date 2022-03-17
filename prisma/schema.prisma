@@ -19,7 +19,6 @@ model User {
   tags      Tag[]
   recommendations Recommendation[]
   authors   Author[]
-  books     Book[]
 }
 
 model Genre {
@@ -52,7 +51,6 @@ model Book {
   genres          Genre[]
   recommendations Recommendation[]
   tags            Tag[]
-  users           User[]
   group           Group             @relation(fields: [groupId], references: [id])
   groupId         Int
 }
@@ -72,7 +70,7 @@ model Recommendation {
   bookId      Int    
   user        User          @relation(fields: [userId], references: [id])       
   userId      Int
-  isMatch     Boolean
+  isMatch     Boolean?
   isStored    Boolean
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
