@@ -85,7 +85,8 @@ const MatchPage = (props) => {
     }
 
     const handleSaveClick = async (event) => {
-      const recommendedBook = library.filter(libraryBook => libraryBook.id === Number(event.target.id))[0];
+      const bookId = Number(event.target.id);
+      const recommendedBook = library.filter(libraryBook => libraryBook.id === bookId)[0];
 
       await addSavedBookToUser(recommendedBook);
     }

@@ -21,8 +21,8 @@ const MyRecommendations = (props) => {
 
     const getAuthors = (books) => {
         const foundAuthors = [];
-        books.map(saved => {
-            saved.book.authors.map(author => {
+        books.forEach(saved => {
+            saved.book.authors.forEach(author => {
                 if(!foundAuthors.includes(author.name)){
                     foundAuthors.push(author.name);
                 }
@@ -34,8 +34,8 @@ const MyRecommendations = (props) => {
 
     const getTags = (books) => {
         const foundTags = [];
-        books.map(saved => {
-            saved.book.tags.map(tag => {
+        books.forEach(saved => {
+            saved.book.tags.forEach(tag => {
                 if(!foundTags.includes(tag.name)){
                     foundTags.push(tag.name);
                 }
