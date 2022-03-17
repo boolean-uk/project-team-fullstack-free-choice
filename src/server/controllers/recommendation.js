@@ -2,25 +2,30 @@ const { prisma } = require('../utils/prisma');
 const { SERVER_SUCCESS, SERVER_ERROR } = require('../config.js');
 
 const createRecommendation = async(req, res) => {
-    const { bookId, userId, isStored} = req.body;
+    const userId = Number(req.params.userId);
+    const { bookId, isStored } = req.body;
 
     const recommendation = {
         bookId: Number(bookId),
-        userId: Number(userId),
-        isStored
+        userId: userId,
+        isStored,
+        isMatch: false
     }
 
     try{
-        const savedBooks = await prisma.recommendation.create({
+        const createdRecommendation = await prisma.recommendation.create({
             data: {
                 ...recommendation
             }
         });
 
-        res.status(SERVER_SUCCESS.POST_OK.CODE).json({ data: savedBooks });
+        console.log('created rec', createdRecommendation);
+
+        res.status(SERVER_SUCCESS.POST_OK.CODE).json({ data: createdRecommendation });
     }
     catch(error){
-        res.status(SERVER_SUCCESS.INTERNAL.CODE).json(SERVER_SUCCESS.INTERNAL.MESSAGE);
+        console.log(error);
+        res.status(SERVER_ERROR.INTERNAL.CODE).json(SERVER_ERROR.INTERNAL.MESSAGE);
     }
 }
 

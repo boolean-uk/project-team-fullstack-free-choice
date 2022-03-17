@@ -9,7 +9,7 @@ import Footer from '../../components/Footer'
 import '../../styles/match.css'
 
 const MatchPage = (props) => {
-    const { user } = props;
+    const { userId } = props;
 
     const [library, setLibrary] = useState({});
     const [book, setBook] = useState({});
@@ -69,18 +69,18 @@ const MatchPage = (props) => {
     }  
 
     const addSavedBookToUser = async (recommendedBook) => {
-      const res = await fetch(POST_RECOMMENDATION + user.id, {
+      const res = await fetch(POST_RECOMMENDATION + userId, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           bookId: recommendedBook.id,
-          userId: user.id,
+          userId: userId,
           isStored: true
         })
       });
-      const storedRecommendation = res.json();
+      const storedRecommendation = await res.json();
       console.log('Stored book:', storedRecommendation.data);
     }
 
@@ -107,7 +107,7 @@ const MatchPage = (props) => {
                       </div>
                       <div className='details'>
                         <h2 className='title'>{book.title}</h2>
-                        <h4 className='book-description'>{book.description.substring(0, 220)}</h4>
+                        <h4 className='book-description'>{book.description}</h4>
                         <div className='tags'>
                           {book.tags && book.tags.map((tag, index) => {
                               return <div className='tag' key={index}>{tag.name}</div>}
@@ -141,7 +141,7 @@ const MatchPage = (props) => {
 }
 
 MatchPage.propTypes = {
-  user: PropTypes.string.isRequired
+  userId: PropTypes.string.isRequired
 }
 
 export default MatchPage;

@@ -9,6 +9,6 @@ const router = express.Router();
 
 router.get('/', getRecommendations);
 
-router.post('/', createRecommendation);
+router.post('/:userId', createRecommendation);
 
 module.exports = router;
