@@ -1,14 +1,13 @@
 const express = require('express');
 
-const { 
-    createRecommendation, 
-    getUsersRecommendations
+const {
+    
 } = require('../controllers/recommendation.js');
 
 const router = express.Router();
 
-router.post('/', createRecommendation);
+// router.get('/', );
 
-router.get('/:userId', getUsersRecommendations)
+// router.post('/', );
 
 module.exports = router;

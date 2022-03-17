@@ -1,8 +1,7 @@
 const { prisma } = require('../utils/prisma');
+const { SERVER_ERROR, SERVER_SUCCESS } = require('../config');
 
-import { SERVER_SUCCESS, SERVER_ERROR } from '../config'
-
-const createRecommendation = async(req, res) => {
+const createRecommendation = async (req, res) => {
     const { bookId, userId, isStored} = req.body;
 
     const recommendation = {
@@ -26,7 +25,7 @@ const createRecommendation = async(req, res) => {
     
 }
 
-const getUsersRecommendations = async (req, res) => {
+const getRecommendations = async (req, res) => {
     const userId = Number(req.body.id);
 
     const foundRecommendations = await prisma.recommendation.findMany({
@@ -46,7 +45,7 @@ const getUsersRecommendations = async (req, res) => {
     res.status(SERVER_SUCCESS.OK.CODE).json({ data: foundRecommendations });
 }
 
-module.exports = { 
+module.exports = {
     createRecommendation,
-    getUsersRecommendations
- }
+    getRecommendations
+}
