@@ -7,7 +7,7 @@ const {
 
 const router = express.Router();
 
-router.get('/', getRecommendations);
+router.get('/:userId', getRecommendations);
 
 router.post('/:userId', createRecommendation);
 

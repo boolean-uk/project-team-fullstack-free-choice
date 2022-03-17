@@ -54,7 +54,7 @@ const createRecommendation = async(req, res) => {
 }
 
 const getRecommendations = async (req, res) => {
-    const userId = Number(req.body.id);
+    const userId = Number(req.body.userId);
 
     const foundRecommendations = await prisma.recommendation.findMany({
         where: {

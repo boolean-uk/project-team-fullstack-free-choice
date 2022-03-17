@@ -20,7 +20,7 @@ const MyRecommendations = (props) => {
     }, []);
     
     const fetchRecommendedBooks = async() =>{
-        const res = await fetch(GET_RECOMMENDATION);
+        const res = await fetch(GET_RECOMMENDATION + userId);
 
         const recommendedData =  await res.json();
 
