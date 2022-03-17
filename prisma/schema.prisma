@@ -70,7 +70,7 @@ model Recommendation {
   bookId      Int    
   user        User          @relation(fields: [userId], references: [id])       
   userId      Int
-  isMatch     Boolean?
+  isMatch     Boolean
   isStored    Boolean
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
