@@ -1,11 +1,14 @@
 import React from 'react';
 import { useState } from 'react';
-import '../../styles/signIn.css'
-
 import { LOGIN_URL } from '../../config'
 import { useNavigate } from 'react-router';
+import PropTypes from 'prop-types'
 
-const SignIn = () => {
+import '../../styles/signIn.css'
+
+const SignIn = (props) => {
+    const { setUserId } = props;
+
     const emptyUser = {
         username: '',
         password: ''
@@ -23,12 +26,18 @@ const SignIn = () => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(loginDetails)
-        })
-        const data = await res.json();
-        if (data.error) {
+        });
+        const foundUser = await res.json();
+
+        if (foundUser.error) {
             return false;
         }
-        localStorage.setItem('token', data.token);
+
+        localStorage.setItem('token', foundUser.token);
+        localStorage.setItem('userId', foundUser.data.id);
+
+        setUserId(localStorage.getItem('userId'));
+
         return true;
     }
 
@@ -88,6 +97,10 @@ const SignIn = () => {
         </>
 
     )
+}
+
+SignIn.propTypes = {
+    setUserId: PropTypes.string.isRequired
 }
 
 export default SignIn
