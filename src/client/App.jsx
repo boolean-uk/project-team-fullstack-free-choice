@@ -10,17 +10,17 @@ import MatchPage from './pages/matchPage/MatchPage';
 import MyRecommendations from './pages/myRecommendations/MyRecommendations';
 
 function App() {
-  const [user, setUser] = useState({});
+  const [userId, setUserId] = useState({});
 
   return (
       <div className="App">
         <Header/>
         <Routes>
           <Route path='/' element={<Home />}/>
-          <Route path='/signup' element={<SignUp setUser={setUser} />}/>
-          <Route path='/signin' element={<SignIn setUser={setUser} />}/>
-          <Route path='/match' element={<MatchPage user={user} />}/>
-          <Route path='/recommendation' element={<MyRecommendations user={user} />}/>
+          <Route path='/signup' element={<SignUp setUserId={setUserId} />}/>
+          <Route path='/signin' element={<SignIn setUserId={setUserId} />}/>
+          <Route path='/match' element={<MatchPage userId={userId} />}/>
+          <Route path='/recommendation' element={<MyRecommendations userId={userId} />}/>
         </Routes>
         <Footer/>
       </div>

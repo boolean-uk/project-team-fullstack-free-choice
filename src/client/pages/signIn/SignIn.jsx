@@ -7,7 +7,7 @@ import PropTypes from 'prop-types'
 import '../../styles/signIn.css'
 
 const SignIn = (props) => {
-    const { setUser } = props;
+    const { setUserId } = props;
 
     const emptyUser = {
         username: '',
@@ -34,9 +34,9 @@ const SignIn = (props) => {
         }
 
         localStorage.setItem('token', foundUser.token);
-        localStorage.setItem('user', foundUser.data);
+        localStorage.setItem('userId', foundUser.data.id);
 
-        setUser(localStorage.getItem('user'));
+        setUserId(localStorage.getItem('userId'));
 
         return true;
     }
@@ -100,7 +100,7 @@ const SignIn = (props) => {
 }
 
 SignIn.propTypes = {
-    setUser: PropTypes.string.isRequired
+    setUserId: PropTypes.string.isRequired
 }
 
 export default SignIn

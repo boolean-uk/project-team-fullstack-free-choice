@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import '../../styles/myRecommendations.css';
 
 const MyRecommendations = (props) => {
-    const { user } = props;
+    const { userId } = props;
     
     const sliceStart = 0;
     const sliceEnd = 5;
@@ -152,7 +152,7 @@ const MyRecommendations = (props) => {
 }
 
 MyRecommendations.propTypes = {
-    user: PropTypes.string.isRequired
+    userId: PropTypes.string.isRequired
 }
 
 export default MyRecommendations;
