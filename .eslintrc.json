@@ -19,7 +19,8 @@
         "react"
     ],
     "rules": {
-    },
+        "react/prop-types": "off"
+      },
     "overrides": [
       {
         "files": "src/**/*.js",
