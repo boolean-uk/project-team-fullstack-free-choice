@@ -1,0 +1,26 @@
+.homepage-selection {
+    width: 100%;
+    min-height: 100%;
+    padding-top: 8rem;
+    background-color: var(--clr-grey2);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 50px;
+}
+
+.homepage-selection > * {
+    max-width: 1000px;
+    margin: 0 50px;
+}
+
+.homepage-selection h1 {
+    color: var(--clr-blue2);
+    font-size: 3rem;
+}
+
+.homepage-selection p {
+    font-size: 1.2rem;
+}

@@ -1,0 +1,72 @@
+.hero-background {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    background-image: url('../../../public/books.png');
+    background-size: cover;
+    filter: blur(2px);
+    z-index: 0;
+    transition-duration: 1.5s;
+    transition-timing-function: cubic-bezier(.01,.08,.23,1.02);
+    text-shadow: 1px 1px 5px black;
+
+}
+
+.hero-background::after {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    background-color: var(--clr-black1);
+    opacity: 0.75;
+}
+
+.hero-content {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 4rem;
+    z-index: 2;
+    color: white;
+    transition-duration: 0.5s;
+}
+
+.hero h2 {
+    padding-bottom: 40px;
+    font-size: 3rem;
+    font-weight: 300;
+}
+
+.hero {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    z-index: 0;
+}
+
+.hero button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 2.5rem;
+    color: var(--clr-white);
+    width: 200px;
+    font-weight: 300;
+}
+
+
+.hero-button-container {
+    gap: 80px;
+}
+
+.hero-button-tutor {
+    background-color: var(--clr-brown1);
+}
+
+.hero-button-student {
+    background-color: var(--clr-brown2);
+}

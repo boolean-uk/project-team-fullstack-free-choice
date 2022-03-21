@@ -1,0 +1,24 @@
+.App-homepage {
+    height: fit-content;
+    position: relative;
+    height: 100vh;
+    overflow-y: hidden;
+}
+
+.homepage-content {
+    position: absolute;
+    width: 100vw;
+    height: 200vh;
+    transform: translate(0, 100vh);
+    transition-duration: 1.5s;
+    z-index: 1;
+    background-color: white;
+}
+
+.App-hompage[data="visible"] {
+    overflow-y: visible;
+}
+
+.homepage-content[data="visible"] {
+    transform: translate(0, 0)
+}

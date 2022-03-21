@@ -23,5 +23,10 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: var(--ff-primary);
+    font-family: var(--ff-secondary);
+
+}
+
+html {
+    overflow-x: hidden;
 }
