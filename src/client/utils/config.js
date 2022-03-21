@@ -1,4 +1,4 @@
-const ROUTES = {
+export const ROUTES = {
     HOMEPAGE: {
         CLIENT: 'Home',
         PATH: '/',
@@ -7,8 +7,4 @@ const ROUTES = {
         CLIENT: 'Contact',
         PATH: '/contact',
     }
-}
-
-module.exports = {
-    ROUTES
 }
